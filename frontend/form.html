@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare Navigator</title>
+</head>
+<body>
+    <form id="info-form">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name"><br><br>
+
+        <label for="age">Age:</label><br>
+        <input type="number" id="age" name="age"><br><br>
+
+        <label for="gender">Gender:</label><br>
+        <select id="gender" name="gender">
+            <option value="man">Man</option>
+            <option value="woman">Woman</option>
+            <option value="nonBinary">NonBinary</option>
+            <option value="preferNotToSay">Would Rather Not Say</option>
+        </select><br><br>
+
+        <label for="insurance">Insurance Provider:</label><br>
+        <select id="insurance" name="insurance">
+            <option value="cigna">Cigna</option>
+            <option value="aetna">Aetna</option>
+            <option value="blueCrossBlueShield">Blue Cross Blue Shield</option>
+            <option value="unitedHealthcare">United Healthcare</option>
+        </select><br><br>
+
+        <input type="submit" value="Submit">
+    </form>    
+
+    <script src="script.js"></script> <!-- Link to the script.js file -->
+</body>
+</html>
