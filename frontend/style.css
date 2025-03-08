@@ -92,3 +92,53 @@ input[type="submit"]:hover {
     background-color: #FFF9F0;
     color: #411115
 }
+
+/* Centering the symptoms page content */
+#symptoms-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #24B0BA;
+}
+
+/* Title Styling */
+#symptoms-page h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Styling for the symptoms input box */
+#symptoms-input {
+    width: 150%; /* Make the input box even wider */
+    max-width: 1500px; /* Adjust the maximum width */
+    height: 425px; /* Increase the height */
+    padding: 30px; /* Increase padding to add more space inside */
+    border: 6px solid #24B0BA;
+    border-radius: 12px; /* Softer, rounded corners */
+    font-size: 1.1rem; /* Adjust font size if needed */
+    margin-bottom: 20px;
+    box-sizing: border-box; /* Ensure padding is included in the width */
+}
+
+
+/* Button Styling (similar to previous page) */
+#next-btn {
+    padding: 12px 25px;
+    background-color: #24B0BA;
+    color: #FFF9F0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background-color 0.3s;
+}
+
+/* Hover effect for the button */
+#next-btn:hover {
+    background-color: #411115;
+}
+
