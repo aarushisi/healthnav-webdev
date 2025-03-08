@@ -9,6 +9,12 @@ document.addEventListener("DOMContentLoaded", function() {
             insurance: document.getElementById('insurance').value
         };
 
-        console.log(userData);  // For testing, we log the user data to the console
+        // Store the user data in localStorage
+        localStorage.setItem('userData', JSON.stringify(userData));
+
+        console.log("User data stored in localStorage:", userData);  // For testing
+
+        // Redirect to the symptoms page
+        window.location.href = "symptoms.html";  // Adjust to the correct path if needed
     });
 });
