@@ -13,8 +13,5 @@ document.addEventListener("DOMContentLoaded", function() {
         localStorage.setItem('userData', JSON.stringify(userData));
 
         console.log("User data stored in localStorage:", userData);  // For testing
-
-        // Redirect to the symptoms page
-        window.location.href = "symptoms.html";  // Adjust to the correct path if needed
     });
 });
