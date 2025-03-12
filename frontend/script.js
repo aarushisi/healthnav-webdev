@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // Form submission for personal details
+    // Personal Info Form Submission (Redirects to symptoms page)
     const form = document.getElementById('info-form');
     if (form) {
         form.addEventListener('submit', function(event) {
@@ -9,10 +9,7 @@ document.addEventListener("DOMContentLoaded", function() {
             let age = parseInt(document.getElementById('age').value, 10);
 
             if (name === "") name = "Anonymous";
-            if (isNaN(age) || age < 0 || age > 120) {
-                alert("Please enter a valid age between 0 and 120.");
-                return;
-            }
+            if (isNaN(age) || age < 0 || age > 120) return;
 
             const userData = {
                 name: name,
@@ -27,32 +24,21 @@ document.addEventListener("DOMContentLoaded", function() {
                 body: JSON.stringify(userData)
             })
             .then(response => response.json())
-            .then(data => {
-                console.log("Server response:", data);
-                alert("User data successfully stored!");
-                window.location.href = "symptoms.html"; // Redirect to symptoms page
+            .then(() => {
+                window.location.href = "symptoms.html"; // Auto-redirect to symptoms page
             })
-            .catch(error => {
-                console.error("Error sending data:", error);
-                alert("Failed to store user data.");
-            });
+            .catch(error => console.error("Error sending data:", error));
         });
     }
 
-    // Symptom submission
+    // Symptoms Submission (Redirects to next page automatically)
     const symptomsButton = document.getElementById('submit-symptoms-btn');
     if (symptomsButton) {
         symptomsButton.addEventListener("click", function() {
             const symptoms = document.getElementById("symptoms-box").value.trim();
+            if (symptoms === "") return; // Prevent empty submissions
 
-            if (symptoms === "") {
-                alert("Please enter your symptoms before submitting.");
-                return;
-            }
-
-            const symptomData = {
-                symptoms: symptoms
-            };
+            const symptomData = { symptoms: symptoms };
 
             fetch("http://127.0.0.1:5000/submit-symptoms", {
                 method: "POST",
@@ -60,14 +46,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 body: JSON.stringify(symptomData)
             })
             .then(response => response.json())
-            .then(data => {
-                console.log("Symptoms stored:", data);
-                alert("Symptoms successfully submitted!");
+            .then(() => {
+                window.location.href = "display.html"; // Auto-redirect to the next step
             })
-            .catch(error => {
-                console.error("Error sending symptoms:", error);
-                alert("Failed to submit symptoms.");
-            });
+            .catch(error => console.error("Error sending symptoms:", error));
         });
     }
 });
