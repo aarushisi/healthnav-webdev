@@ -92,3 +92,60 @@ input[type="submit"]:hover {
     background-color: #FFF9F0;
     color: #411115
 }
+
+/* Centering the Symptoms Page */
+.symptoms-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+.symptoms-container h2 {
+    font-size: 4rem; /* Increase text size */
+    margin-bottom: 30px; /* Move text slightly higher */
+    color: #24B0BA; /* Ensure visibility */
+}
+
+/* Style for the Textbox */
+#symptoms-box {
+    width: 750px; /* Adjustable width */
+    height: 425px; /* Adjustable height */
+    border: 12px solid #411115; /* Thick border */
+    border-radius: 12px; /* Rounded corners */
+    padding: 15px;
+    font-size: 1.5rem; /* Increase font size for input */
+    resize: both; /* Allows resizing */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    background-color: #FFF9F0;
+    color: #411115; /* Change user input text color */
+}
+
+/* Ensure it stays centered when resized */
+.symptoms-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Style the submit button below the textbox */
+#submit-symptoms-btn {
+    padding: 10px 20px;
+    background-color: #24B0BA;
+    color: #FFF9F0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+/* Hover effect for button */
+#submit-symptoms-btn:hover {
+    background-color: #411115;
+}
+
