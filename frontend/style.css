@@ -149,4 +149,35 @@ input[type="submit"]:hover {
     background-color: #411115;
 }
 
+/* Display Page Styling */
+.profile-container {
+    background-color: #411115;
+    padding: 40px; /* More padding for a larger box */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 700px; /* Increase width of the box */
+    box-sizing: border-box;
+    color: #FFF9F0;
+    text-align: left; /* Align content to the left */
+    margin-top: 50px; /* Keeps box lower while staying centered */
+}
+
+/* Labels (Name:, Age:, etc.) */
+.profile-container p strong {
+    font-weight: bold;
+    font-size: 1.6rem; /* Larger labels */
+    color: #24B0BA; /* Teal color */
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+/* User input values (fetched from backend) */
+.profile-container span {
+    font-size: 1.6rem; /* Larger text */
+    color: #FFF9F0; /* Off-white */
+    display: inline; /* Remove extra padding/borders */
+}
+
+
 

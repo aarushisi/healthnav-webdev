@@ -50,5 +50,23 @@ def save_symptoms():
         print("Error:", e)
         return jsonify({"error": "Internal Server Error"}), 500
 
+@app.route("/get-user-data", methods=["GET"])
+def get_user_data():
+    if not user_data_store:
+        return jsonify({"error": "No user data available"}), 404
+
+    latest_user = user_data_store[-1]  # Get the most recent user
+    latest_symptoms = symptom_data_store[-1] if symptom_data_store else {"symptoms": "No symptoms provided"}
+
+    user_info = {
+        "name": latest_user.get("name", "Anonymous"),
+        "age": latest_user.get("age", "N/A"),
+        "gender": latest_user.get("gender", "N/A"),
+        "insurance": latest_user.get("insurance", "N/A"),
+        "symptoms": latest_symptoms.get("symptoms", "No symptoms provided"),
+    }
+    return jsonify(user_info), 200
+
+
 if __name__ == "__main__":
     app.run(debug=True, port=5000)

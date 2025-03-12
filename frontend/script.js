@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // Symptoms Submission (Redirects to next page automatically)
+    // Symptoms Submission (Redirects to display page automatically)
     const symptomsButton = document.getElementById('submit-symptoms-btn');
     if (symptomsButton) {
         symptomsButton.addEventListener("click", function() {
@@ -47,9 +47,28 @@ document.addEventListener("DOMContentLoaded", function() {
             })
             .then(response => response.json())
             .then(() => {
-                window.location.href = "display.html"; // Auto-redirect to the next step
+                window.location.href = "display.html"; // Auto-redirect to display page
             })
             .catch(error => console.error("Error sending symptoms:", error));
         });
+    }
+
+    // Fetch and display user data on the display page
+    if (window.location.pathname.includes("display.html")) {
+        fetch("http://127.0.0.1:5000/get-user-data")
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    console.error("Error fetching user data:", data.error);
+                    return;
+                }
+
+                document.getElementById("profile-name").textContent = data.name;
+                document.getElementById("profile-age").textContent = data.age;
+                document.getElementById("profile-gender").textContent = data.gender;
+                document.getElementById("profile-insurance").textContent = data.insurance;
+                document.getElementById("profile-symptoms").textContent = data.symptoms;
+            })
+            .catch(error => console.error("Error fetching data:", error));
     }
 });
