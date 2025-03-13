@@ -11,7 +11,7 @@ html, body {
 
 #welcome-title {
     font-size: 4rem;
-    margin-top: -80px; /* Moves text higher */
+    margin-top: 0px; /* Moves text higher */
 }
 
 /* Styling for the subheading */
@@ -231,36 +231,65 @@ input[type="submit"]:hover {
     display: inline; /* Remove extra padding/borders */
 }
 
-/* Sidebar Navigation (added for a Streamlit-like nav bar on the left) */
+#profile-container-wrapper {
+    display: flex;
+    justify-content: flex-start; /* Align to the left */
+    align-items: center;
+    height: 80vh;
+    width: 100%;
+    margin-left: 500px; /* Move left (adjust value as needed) */
+}
+
+/* Sidebar Styling - Enhanced for a More Impressive Look */
 .sidebar {
     position: fixed;
     top: 0;
     left: 0;
     width: 250px;
     height: 100%;
-    background-color: #411115;
+    background: linear-gradient(180deg, #411115, #6b1f23); /* Gradient effect */
     padding: 20px;
     box-sizing: border-box;
     color: #FFF9F0;
+    box-shadow: 4px 0 10px #411115; /* Subtle shadow effect */
+    transition: all 0.3s ease-in-out;
 }
 
+/* Sidebar Title */
 .sidebar h2 {
     font-size: 2rem;
     color: #24B0BA;
     margin-bottom: 20px;
     text-align: center;
+    font-weight: bold;
+    letter-spacing: 1px; /* Adds spacing for a sleek effect */
+    text-transform: uppercase;
 }
 
+/* Sidebar Navigation Links */
 .sidebar a {
     display: block;
     color: #FFF9F0;
     text-decoration: none;
-    padding: 10px;
-    margin: 5px 0;
+    padding: 12px 15px;
+    margin: 10px 0;
     font-size: 1.2rem;
-    transition: background-color 0.3s;
+    font-weight: 600;
+    border-radius: 8px; /* Soft rounded corners */
+    transition: background 0.3s ease-in-out, transform 0.2s;
 }
 
+/* Sidebar Hover Effects */
 .sidebar a:hover {
-    background-color: #24B0BA;
+    background: #24B0BA;
+    color: #411115;
+    transform: translateX(5px); /* Moves link slightly to the right on hover */
+    box-shadow: 2px 2px 10px #24B0BA;
+}
+
+/* Sidebar Active Link Effect */
+.sidebar a:active {
+    background: #FFF9F0;
+    color: #411115;
+    font-weight: bold;
 }
