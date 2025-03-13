@@ -84,14 +84,33 @@ body {
 /* Form styling */
 #info-form {
     background-color: #411115;
-    padding: 20px;
+    padding: 30px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
+    width: 500px;
+    height: auto;
     max-width: 500px;
     box-sizing: border-box;
     color: #FFF9F0;
 }
+
+/* Container to move and resize the form as a whole */
+#form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh; /* Adjustable */
+    width: 100%; /* Takes full width */
+    margin-left: 200px;
+}
+
+/* To move the entire form container around */
+.move-form {
+    position: relative;
+    top: 50px;   /* Adjusts vertical position */
+    left: 1000px;  /* Adjusts horizontal position */
+}
+
 
 label {
     font-weight: bold;

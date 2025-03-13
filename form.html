@@ -12,32 +12,35 @@
         <a href="form.html">Profile</a>
         <a href="symptoms.html">Symptoms</a>
     </div>
-    <form id="info-form">
-        <label for="name">Name:</label><br>
-        <input type="text" id="name" name="name"><br><br>
 
-        <label for="age">Age:</label><br>
-        <input type="number" id="age" name="age" min="0" max="120" required><br><br>
-        
+    <!-- New wrapper to move and resize the form as a unit -->
+    <div id="form-container">
+        <form id="info-form">
+            <label for="name">Name:</label><br>
+            <input type="text" id="name" name="name"><br><br>
 
-        <label for="gender">Gender:</label><br>
-        <select id="gender" name="gender">
-            <option value= "Man">Man</option>
-            <option value= "Woman">Woman</option>
-            <option value= "NonBinary">Non-Binary</option>
-            <option value= "preferNotToSay">Would Rather Not Say</option>
-        </select><br><br>
+            <label for="age">Age:</label><br>
+            <input type="number" id="age" name="age" min="0" max="120" required><br><br>
 
-        <label for="insurance">Insurance Provider:</label><br>
-        <select id="insurance" name="insurance">
-            <option value="cigna">Cigna</option>
-            <option value="aetna">Aetna</option>
-            <option value="blueCrossBlueShield">Blue Cross Blue Shield</option>
-            <option value="unitedHealthcare">United Healthcare</option>
-        </select><br><br>
+            <label for="gender">Gender:</label><br>
+            <select id="gender" name="gender">
+                <option value= "Man">Man</option>
+                <option value= "Woman">Woman</option>
+                <option value= "NonBinary">Non-Binary</option>
+                <option value= "preferNotToSay">Would Rather Not Say</option>
+            </select><br><br>
 
-        <input type="submit" value="Submit">
-    </form>    
+            <label for="insurance">Insurance Provider:</label><br>
+            <select id="insurance" name="insurance">
+                <option value="cigna">Cigna</option>
+                <option value="aetna">Aetna</option>
+                <option value="blueCrossBlueShield">Blue Cross Blue Shield</option>
+                <option value="unitedHealthcare">United Healthcare</option>
+            </select><br><br>
+
+            <input type="submit" value="Submit">
+        </form>
+    </div>
 
     <script src="script.js"></script> <!-- Link to the script.js file -->
 </body>
