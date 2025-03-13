@@ -1,4 +1,55 @@
 document.addEventListener("DOMContentLoaded", function() {
+    // Language Selection Handling
+    const languageDropdown = document.getElementById("language-dropdown");
+    const welcomeTitle = document.getElementById("welcome-title");
+    const startButton = document.getElementById("get-started-btn");
+
+    // Translations for multi-language support
+    const translations = {
+        en: {
+            title: "Welcome to the Healthcare Navigator",
+            button: "Get Started"
+        },
+        es: {
+            title: "Bienvenido al Navegador de Atención Médica",
+            button: "Comenzar"
+        },
+        fr: {
+            title: "Bienvenue sur le Navigateur de Santé",
+            button: "Commencer"
+        }
+    };
+
+    if (languageDropdown) {
+        // Load stored language preference
+        const savedLanguage = localStorage.getItem("selectedLanguage") || "en";
+        languageDropdown.value = savedLanguage;
+        applyTranslations(savedLanguage);
+
+        // Update language selection when changed
+        languageDropdown.addEventListener("change", function() {
+            const selectedLanguage = languageDropdown.value;
+            localStorage.setItem("selectedLanguage", selectedLanguage);
+            applyTranslations(selectedLanguage);
+        });
+    }
+
+    // Apply translations based on selected language
+    function applyTranslations(lang) {
+        if (translations[lang]) {
+            welcomeTitle.textContent = translations[lang].title;
+            startButton.textContent = translations[lang].button;
+        }
+    }
+
+    // Redirect to form page when "Get Started" button is clicked
+    const startButtonElement = document.getElementById("get-started-btn");
+    if (startButtonElement) {
+        startButtonElement.addEventListener("click", function() {
+            window.location.href = "form.html";
+        });
+    }
+
     // Personal Info Form Submission (Redirects to symptoms page)
     const form = document.getElementById('info-form');
     if (form) {

@@ -41,6 +41,22 @@ h1 {
     background-color: #411115;
 }
 
+/* Language Dropdown Styling */
+#language-selector {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+}
+
+#language-dropdown {
+    padding: 8px 16px;
+    border: 2px solid #FFF9F0;
+    border-radius: 20px; /* Oval shape */
+    background-color: #24B0BA;
+    font-size: 1rem;
+    cursor: pointer;
+    color: #FFF9F0;
+}
 
 /* Centering the form page */
 body {
