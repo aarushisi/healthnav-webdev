@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, send_from_directory
 
-app = Flask(__name__, static_folder="")
+app = Flask(__name__, static_folder=".")
 
 # Temporary in-memory storage (to be replaced with a database)
 user_data_store = []
