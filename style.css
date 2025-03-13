@@ -179,7 +179,6 @@ input[type="submit"]:hover {
     display: inline; /* Remove extra padding/borders */
 }
 
-/* Sidebar Navigation (added for a Streamlit-like nav bar on the left) */
 .sidebar {
     position: fixed;
     top: 0;
