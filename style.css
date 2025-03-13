@@ -8,6 +8,19 @@ html, body {
 }
 
 /* Welcome page styling */
+
+#welcome-title {
+    font-size: 4rem;
+    margin-top: -80px; /* Moves text higher */
+}
+
+/* Styling for the subheading */
+#welcome-subtitle {
+    font-size: 2rem;
+    color: #411115;
+    margin-bottom: 50px;
+}
+
 #welcome-page {
     display: flex;
     flex-direction: column;
@@ -25,13 +38,13 @@ h1 {
 
 /* Button styling for the welcome page */
 #get-started-btn {
-    padding: 10px 20px;
+    padding: 20px 30px;
     background-color: #24B0BA;
     color: #FFF9F0;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 1.1rem;  /* Adjust button text size */
+    font-size: 1.5rem;  /* Adjust button text size */
     margin-top: 20px;
     transition: background-color 0.3s;
 }
@@ -39,6 +52,7 @@ h1 {
 /* Hover effect for the button */
 #get-started-btn:hover {
     background-color: #411115;
+    color: #24B0BA
 }
 
 /* Language Dropdown Styling */
