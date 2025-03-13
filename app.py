@@ -7,14 +7,14 @@ user_data_store = []
 symptom_data_store = {}  # Store symptoms per user session
 follow_up_store = {}
 
-### Serve Files ###
+### 🏠 Serve Frontend Files ###
 @app.route("/")
 def serve_index():
-    return send_from_directory("", "index.html")
+    return send_from_directory("frontend", "index.html")
 
 @app.route("/<path:path>")
 def serve_static_files(path):
-    return send_from_directory("", path)
+    return send_from_directory("frontend", path)
 
 ### Store User Data ###
 @app.route("/submit", methods=["POST"])

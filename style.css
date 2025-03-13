@@ -14,7 +14,7 @@ html, body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    color: #24B0BA
+    color: #24B0BA;
 }
 
 h1 {
@@ -41,24 +41,9 @@ h1 {
     background-color: #411115;
 }
 
-/* Language Dropdown Styling */
-#language-selector {
-    position: absolute;
-    top: 20px;
-    right: 30px;
-}
-
-#language-dropdown {
-    padding: 8px 16px;
-    border: 2px solid #FFF9F0;
-    border-radius: 20px; /* Oval shape */
-    background-color: #24B0BA;
-    font-size: 1rem;
-    cursor: pointer;
-    color: #FFF9F0;
-}
 
 /* Centering the form page */
+/* (Note: When using a sidebar, you might wrap your main content in a separate container) */
 body {
     display: flex;
     justify-content: center;
@@ -75,7 +60,7 @@ body {
     width: 100%;
     max-width: 500px;
     box-sizing: border-box;
-    color: #FFF9F0
+    color: #FFF9F0;
 }
 
 label {
@@ -106,7 +91,7 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
     background-color: #FFF9F0;
-    color: #411115
+    color: #411115;
 }
 
 /* Centering the Symptoms Page */
@@ -195,5 +180,35 @@ input[type="submit"]:hover {
     display: inline; /* Remove extra padding/borders */
 }
 
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100%;
+    background-color: #411115;
+    padding: 20px;
+    box-sizing: border-box;
+    color: #FFF9F0;
+}
 
+.sidebar h2 {
+    font-size: 2rem;
+    color: #24B0BA;
+    margin-bottom: 20px;
+    text-align: center;
+}
 
+.sidebar a {
+    display: block;
+    color: #FFF9F0;
+    text-decoration: none;
+    padding: 10px;
+    margin: 5px 0;
+    font-size: 1.2rem;
+    transition: background-color 0.3s;
+}
+
+.sidebar a:hover {
+    background-color: #24B0BA;
+}
