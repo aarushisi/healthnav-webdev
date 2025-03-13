@@ -15,7 +15,7 @@ def serve_index():
 def serve_static_files(path):
     return send_from_directory(".", path)
 
-### 📝 Store User Data ###
+### Store User Data ###
 @app.route("/submit", methods=["POST"])
 def save_user_data():
     try:
@@ -37,7 +37,7 @@ def save_user_data():
         print("Error:", e)
         return jsonify({"error": "Internal Server Error"}), 500
 
-### 🔎 Helper Functions ###
+### Helper Functions ###
 def generate_followup(symptoms):
     """ Temporary function to generate a follow-up question based on symptoms. """
     return "Can you describe the pain in more detail?"  # Placeholder
@@ -46,7 +46,7 @@ def analyze_medical_terms(full_response):
     """ Temporary function to analyze symptoms and suggest a specialty. """
     return "You may need to see an orthopedic specialist."  # Placeholder
 
-### ✅ Store Symptoms & Generate Follow-Up ###
+### Store Symptoms & Generate Follow-Up ###
 @app.route("/submit-symptoms", methods=["POST"])
 def save_symptoms():
     try:
@@ -65,7 +65,7 @@ def save_symptoms():
         print("Error:", e)
         return jsonify({"error": "Internal Server Error"}), 500
 
-### 🏥 Store Follow-Up & Generate Diagnosis ###
+### Store Follow-Up & Generate Diagnosis ###
 @app.route("/submit-followup", methods=["POST"])
 def save_followup():
     try:
@@ -92,7 +92,7 @@ def save_followup():
         print("Error:", e)
         return jsonify({"error": "Internal Server Error"}), 500
 
-### 📊 Retrieve User & Symptom Data for Display ###
+### Retrieve User & Symptom Data for Display ###
 @app.route("/get-user-data", methods=["GET"])
 def get_user_data():
     if not user_data_store:
