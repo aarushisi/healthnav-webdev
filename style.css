@@ -195,36 +195,3 @@ input[type="submit"]:hover {
     color: #FFF9F0; /* Off-white */
     display: inline; /* Remove extra padding/borders */
 }
-
-.sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 250px;
-    height: 100%;
-    background-color: #411115;
-    padding: 20px;
-    box-sizing: border-box;
-    color: #FFF9F0;
-}
-
-.sidebar h2 {
-    font-size: 2rem;
-    color: #24B0BA;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.sidebar a {
-    display: block;
-    color: #FFF9F0;
-    text-decoration: none;
-    padding: 10px;
-    margin: 5px 0;
-    font-size: 1.2rem;
-    transition: background-color 0.3s;
-}
-
-.sidebar a:hover {
-    background-color: #24B0BA;
-}
