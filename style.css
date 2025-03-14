@@ -87,11 +87,46 @@ body {
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 500px;
+    width: 800px;
     height: auto;
-    max-width: 500px;
+    max-width: 1000px;
     box-sizing: border-box;
     color: #FFF9F0;
+}
+
+/* Address Fields Layout */
+#address-fields {
+    display: flex;
+    gap: 10px; /* Adds spacing between fields */
+    width: 100%;
+}
+
+#address-fields input, 
+#address-fields select {
+    flex: 1; /* Ensures equal width */
+    padding: 8px;
+    border: 1px solid #24B0BA;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Adjusted field sizes */
+#street {
+    flex: 2; /* Makes street address take more space */
+}
+
+#city {
+    flex: 1.5; /* Keeps city field smaller than street */
+}
+
+#state {
+    width: 70px; /* Makes state dropdown smaller */
+    flex: none;
+}
+
+#zip {
+    width: 70px; /* Smaller zip code field */
+    flex: none;
 }
 
 /* Container to move and resize the form as a whole */
@@ -101,7 +136,7 @@ body {
     align-items: center;
     height: 80vh; /* Adjustable */
     width: 100%; /* Takes full width */
-    margin-left: 200px;
+    margin-left: 250px;
 }
 
 /* To move the entire form container around */
