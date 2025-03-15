@@ -66,7 +66,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 name: name,
                 age: age,
                 gender: document.getElementById('gender').value,
-                insurance: document.getElementById('insurance').value
+                insurance: document.getElementById('insurance').value,
+                street: document.getElementById('street').value.trim(),
+                city: document.getElementById('city').value.trim(),
+                state: document.getElementById('state').value,
+                zip: document.getElementById('zip').value.trim()
             };
 
             fetch("http://127.0.0.1:5000/submit", {
@@ -118,6 +122,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 document.getElementById("profile-age").textContent = data.age;
                 document.getElementById("profile-gender").textContent = data.gender;
                 document.getElementById("profile-insurance").textContent = data.insurance;
+                document.getElementById("profile-address").textContent = `${data.street}, ${data.city}, ${data.state}, ${data.zip}`;
                 document.getElementById("profile-symptoms").textContent = data.symptoms;
             })
             .catch(error => console.error("Error fetching data:", error));

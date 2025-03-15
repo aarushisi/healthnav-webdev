@@ -109,6 +109,10 @@ def get_user_data():
         "age": latest_user.get("age", "N/A"),
         "gender": latest_user.get("gender", "N/A"),
         "insurance": latest_user.get("insurance", "N/A"),
+        "street": latest_user.get("street", "N/A"),
+        "city": latest_user.get("city", "N/A"),
+        "state": latest_user.get("state", "N/A"),
+        "zip": latest_user.get("zip", "N/A"),
         "symptoms": latest_symptoms,
         "followups": followups
     }
