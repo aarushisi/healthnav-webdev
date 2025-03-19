@@ -195,6 +195,9 @@ function displayDoctors(doctors) {
     const doctorsList = document.getElementById("doctors-list");
     const message = document.getElementById("doctors-message");
 
+    // Clear previous entries (Fixes the issue)
+    doctorsList.innerHTML = "";
+
     if (doctors.length === 0) {
         message.textContent = "No doctors found in your state.";
         return;
@@ -202,7 +205,10 @@ function displayDoctors(doctors) {
 
     message.style.display = "none"; // Hide loading message
 
-    doctors.forEach(doctor => {
+    // Ensure we only display 10 doctors
+    const limitedDoctors = doctors.slice(0, 10);
+
+    limitedDoctors.forEach(doctor => {
         const listItem = document.createElement("li");
         listItem.textContent = `${doctor.first_name} ${doctor.last_name}, ${doctor.degree} - ${doctor.city}, ${doctor.state}`;
         doctorsList.appendChild(listItem);

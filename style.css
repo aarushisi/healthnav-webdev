@@ -361,10 +361,11 @@ input[type="submit"]:hover {
 /* Centered Doctors Box */
 .doctors-box {
     position: absolute; /* Allows free movement */
-    top: 40%; /* Adjust this to move up/down */
-    margin-left: 875px; /* Move left (adjust value as needed) */
+    top: 50%; /* Adjust this to move up/down */
+    margin-left: 975px; /* Move left (adjust value as needed) */
     transform: translate(-50%, -50%); /* Centers it based on its own size */
-    width: 600px; /* Adjust width as needed */
+    max-width: 800px; /* Adjust width as needed */
+    width: 100%;
     background-color: #411115; /* Dark background */
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
