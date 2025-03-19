@@ -163,19 +163,48 @@ document.addEventListener("DOMContentLoaded", function() {
             .catch(error => console.error("Error fetching user data:", error));
     }
 
-    function displayDoctors(doctors) {
-        const doctorsList = document.getElementById("doctors-list");
-        doctorsList.innerHTML = ""; // Clear existing content
-    
-        if (doctors.length === 0) {
-            doctorsList.innerHTML = "<li>No doctors found in your state.</li>";
-            return;
-        }
-    
-        doctors.forEach(doctor => {
-            const listItem = document.createElement("li");
-            listItem.textContent = `${doctor.first_name} ${doctor.last_name}, ${doctor.degree} - ${doctor.city}, ${doctor.state}`;
-            doctorsList.appendChild(listItem);
-        });
+    if (window.location.pathname.includes("doctors.html")) {
+        fetch("http://127.0.0.1:5000/get-user-data")
+            .then(response => response.json())
+            .then(userData => {
+                if (userData.error) {
+                    console.error("Error fetching user data:", userData.error);
+                    return;
+                }
+
+                const userState = userData.state;
+
+                // Fetch doctors and filter by state
+                fetch("http://127.0.0.1:5000/get-doctors")
+                    .then(response => response.json())
+                    .then(doctors => {
+                        const filteredDoctors = doctors
+                        .filter(doc => doc.state === userState)
+                        .sort((a, b) => a.last_name.localeCompare(b.last_name))
+                        .slice(0, 10); // Limit to first 10 doctors
+
+                        displayDoctors(filteredDoctors);
+                    })
+                    .catch(error => console.error("Error fetching doctors:", error));
+            })
+            .catch(error => console.error("Error fetching user data:", error));
     }
 });
+
+function displayDoctors(doctors) {
+    const doctorsList = document.getElementById("doctors-list");
+    const message = document.getElementById("doctors-message");
+
+    if (doctors.length === 0) {
+        message.textContent = "No doctors found in your state.";
+        return;
+    }
+
+    message.style.display = "none"; // Hide loading message
+
+    doctors.forEach(doctor => {
+        const listItem = document.createElement("li");
+        listItem.textContent = `${doctor.first_name} ${doctor.last_name}, ${doctor.degree} - ${doctor.city}, ${doctor.state}`;
+        doctorsList.appendChild(listItem);
+    });
+}
