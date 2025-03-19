@@ -242,7 +242,7 @@ input[type="submit"]:hover {
     padding: 40px; /* More padding for a larger box */
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
+    width: 90%;
     max-width: 800px; /* Increase width of the box */
     box-sizing: border-box;
     color: #FFF9F0;
@@ -272,7 +272,7 @@ input[type="submit"]:hover {
     align-items: center;
     height: 80vh;
     width: 100%;
-    margin-left: 475px; /* Move left (adjust value as needed) */
+    margin-left: 700px; /* Move left (adjust value as needed) */
 }
 
 /* Sidebar Styling - Enhanced for a More Impressive Look */
@@ -328,3 +328,33 @@ input[type="submit"]:hover {
     color: #411115;
     font-weight: bold;
 }
+
+/* Floating Correct Button Container */
+#correct-btn-container {
+    position: absolute; /* Allows free movement */
+    top: 80%; /* Adjust as needed */
+    transform: translate(-50%, -50%); /* Ensures perfect centering */
+    z-index: 10; /* Keeps it above other elements */
+    margin-left: 400px; /* Move left (adjust value as needed) */
+}
+
+/* Correct Button - Styled like other buttons */
+#correct-btn {
+    padding: 15px 30px;
+    background-color: #24B0BA;
+    color: #FFF9F0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.3rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease-in-out;
+    text-align: center;
+}
+
+/* Hover effect */
+#correct-btn:hover {
+    background-color: #411115;
+    color: #24B0BA;
+}
+
