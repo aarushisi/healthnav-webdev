@@ -1,3 +1,4 @@
+import sqlite3
 from flask import Flask, request, jsonify, send_from_directory
 
 app = Flask(__name__, static_folder=".")
@@ -6,6 +7,11 @@ app = Flask(__name__, static_folder=".")
 user_data_store = []
 symptom_data_store = {}  # Store symptoms per user session
 follow_up_store = {}
+
+def get_db_connection():
+    conn = sqlite3.connect("healthnav.db")
+    conn.row_factory = sqlite3.Row  # Allows dictionary-like row access
+    return conn
 
 ### 🏠 Serve Frontend Files ###
 @app.route("/")
@@ -31,7 +37,16 @@ def save_user_data():
         if age is None or not (0 <= int(age) <= 120):
             return jsonify({"error": "Invalid age. Must be between 0 and 120."}), 400
 
-        user_data_store.append(data)
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("""
+            INSERT INTO users (name, age, gender, insurance, street, city, state, zip) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        """, (data["name"], data["age"], data["gender"], data["insurance"],
+            data["street"], data["city"], data["state"], data["zip"]))
+        conn.commit()
+        conn.close()
+
         print("User data received:", data)
         return jsonify({"message": "User data received successfully"}), 200
     except Exception as e:
@@ -95,28 +110,33 @@ def save_followup():
 
 ### Retrieve User & Symptom Data for Display ###
 @app.route("/get-user-data", methods=["GET"])
+@app.route("/get-user-data", methods=["GET"])
 def get_user_data():
-    if not user_data_store:
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    user = cursor.execute("SELECT * FROM users ORDER BY id DESC LIMIT 1").fetchone()
+    conn.close()
+
+    if not user:
         return jsonify({"error": "No user data available"}), 404
 
-    latest_user = user_data_store[-1]  # Get most recent user
-    user_id = "default"  # Temporary session handling
-    latest_symptoms = symptom_data_store.get(user_id, {}).get("symptoms", "No symptoms provided")
-    followups = symptom_data_store.get(user_id, {}).get("followups", [])
+    return jsonify(dict(user)), 200  # ✅ Correct return statement
 
-    user_info = {
-        "name": latest_user.get("name", "Anonymous"),
-        "age": latest_user.get("age", "N/A"),
-        "gender": latest_user.get("gender", "N/A"),
-        "insurance": latest_user.get("insurance", "N/A"),
-        "street": latest_user.get("street", "N/A"),
-        "city": latest_user.get("city", "N/A"),
-        "state": latest_user.get("state", "N/A"),
-        "zip": latest_user.get("zip", "N/A"),
-        "symptoms": latest_symptoms,
-        "followups": followups
-    }
-    return jsonify(user_info), 200
+@app.route("/get-doctors", methods=["GET"])
+def get_doctors():
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        doctors = cursor.execute("SELECT * FROM doctors").fetchall()
+        conn.close()
+
+        # Convert SQLite rows to dictionary
+        doctor_list = [dict(row) for row in doctors]
+        return jsonify(doctor_list), 200
+    except Exception as e:
+        print("Error:", e)
+        return jsonify({"error": "Internal Server Error"}), 500
+
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
