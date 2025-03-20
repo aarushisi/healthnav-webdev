@@ -127,4 +127,90 @@ document.addEventListener("DOMContentLoaded", function() {
             })
             .catch(error => console.error("Error fetching data:", error));
     }
+
+    const correctButton = document.getElementById("correct-btn");
+    if (correctButton) {
+        correctButton.addEventListener("click", function() {
+            window.location.href = "doctors.html";
+        });
+    }
+
+    // Fetch and display doctors when on the doctors page
+    if (window.location.pathname.includes("doctors.html")) {
+        fetch("http://127.0.0.1:5000/get-user-data")
+            .then(response => response.json())
+            .then(userData => {
+                if (userData.error) {
+                    console.error("Error fetching user data:", userData.error);
+                    return;
+                }
+
+                const userState = userData.state;  // Extract user's state
+
+                // Fetch doctors and filter by state
+                fetch("http://127.0.0.1:5000/get-doctors")
+                    .then(response => response.json())
+                    .then(doctors => {
+                        const filteredDoctors = doctors
+                            .filter(doc => doc.state === userState) // Match state
+                            .sort((a, b) => a.last_name.localeCompare(b.last_name)) // Sort alphabetically
+                            .slice(0, 10); // Limit to top 10
+
+                        displayDoctors(filteredDoctors);
+                    })
+                    .catch(error => console.error("Error fetching doctors:", error));
+            })
+            .catch(error => console.error("Error fetching user data:", error));
+    }
+
+    if (window.location.pathname.includes("doctors.html")) {
+        fetch("http://127.0.0.1:5000/get-user-data")
+            .then(response => response.json())
+            .then(userData => {
+                if (userData.error) {
+                    console.error("Error fetching user data:", userData.error);
+                    return;
+                }
+
+                const userState = userData.state;
+
+                // Fetch doctors and filter by state
+                fetch("http://127.0.0.1:5000/get-doctors")
+                    .then(response => response.json())
+                    .then(doctors => {
+                        const filteredDoctors = doctors
+                        .filter(doc => doc.state === userState)
+                        .sort((a, b) => a.last_name.localeCompare(b.last_name))
+                        .slice(0, 10); // Limit to first 10 doctors
+
+                        displayDoctors(filteredDoctors);
+                    })
+                    .catch(error => console.error("Error fetching doctors:", error));
+            })
+            .catch(error => console.error("Error fetching user data:", error));
+    }
 });
+
+function displayDoctors(doctors) {
+    const doctorsList = document.getElementById("doctors-list");
+    const message = document.getElementById("doctors-message");
+
+    // Clear previous entries (Fixes the issue)
+    doctorsList.innerHTML = "";
+
+    if (doctors.length === 0) {
+        message.textContent = "No doctors found in your state.";
+        return;
+    }
+
+    message.style.display = "none"; // Hide loading message
+
+    // Ensure we only display 10 doctors
+    const limitedDoctors = doctors.slice(0, 10);
+
+    limitedDoctors.forEach(doctor => {
+        const listItem = document.createElement("li");
+        listItem.textContent = `${doctor.first_name} ${doctor.last_name}, ${doctor.degree} - ${doctor.city}, ${doctor.state}`;
+        doctorsList.appendChild(listItem);
+    });
+}

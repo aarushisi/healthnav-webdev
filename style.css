@@ -242,7 +242,7 @@ input[type="submit"]:hover {
     padding: 40px; /* More padding for a larger box */
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
+    width: 90%;
     max-width: 800px; /* Increase width of the box */
     box-sizing: border-box;
     color: #FFF9F0;
@@ -267,12 +267,13 @@ input[type="submit"]:hover {
 }
 
 #profile-container-wrapper {
-    display: flex;
+    display: absolute;
     justify-content: flex-start; /* Align to the left */
     align-items: center;
     height: 80vh;
     width: 100%;
-    margin-left: 475px; /* Move left (adjust value as needed) */
+    margin-top: 160px;
+    margin-left: 465px; /* Move left (adjust value as needed) */
 }
 
 /* Sidebar Styling - Enhanced for a More Impressive Look */
@@ -328,3 +329,74 @@ input[type="submit"]:hover {
     color: #411115;
     font-weight: bold;
 }
+
+/* Floating Correct Button Container */
+#correct-btn-container {
+    position: absolute; /* Allows free movement */
+    top: 80%; /* Adjust as needed */
+    transform: translate(-50%, -50%); /* Ensures perfect centering */
+    z-index: 10; /* Keeps it above other elements */
+    margin-left: 400px; /* Move left (adjust value as needed) */
+}
+
+/* Correct Button - Styled like other buttons */
+#correct-btn {
+    padding: 15px 30px;
+    background-color: #24B0BA;
+    color: #FFF9F0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.3rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease-in-out;
+    text-align: center;
+}
+
+/* Hover effect */
+#correct-btn:hover {
+    background-color: #411115;
+    color: #24B0BA;
+}
+
+/* Centered Doctors Box */
+.doctors-box {
+    position: absolute; /* Allows free movement */
+    top: 50%; /* Adjust this to move up/down */
+    margin-left: 1150px; /* Move left (adjust value as needed) */
+    transform: translate(-50%, -50%); /* Centers it based on its own size */
+    max-width: 800px; /* Adjust width as needed */
+    width: 100%;
+    background-color: #411115; /* Dark background */
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+}
+
+/* Message while loading */
+#doctors-message {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #FFF9F0;
+    margin-bottom: 15px;
+}
+
+/* Doctor List Styling */
+#doctors-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Individual Doctor Entry */
+#doctors-list li {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #FFF9F0;
+    padding: 10px;
+    border-bottom: 2px solid #24B0BA;
+}
+
+
+
