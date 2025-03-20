@@ -267,12 +267,13 @@ input[type="submit"]:hover {
 }
 
 #profile-container-wrapper {
-    display: flex;
+    display: absolute;
     justify-content: flex-start; /* Align to the left */
     align-items: center;
     height: 80vh;
     width: 100%;
-    margin-left: 700px; /* Move left (adjust value as needed) */
+    margin-top: 160px;
+    margin-left: 465px; /* Move left (adjust value as needed) */
 }
 
 /* Sidebar Styling - Enhanced for a More Impressive Look */
@@ -362,7 +363,7 @@ input[type="submit"]:hover {
 .doctors-box {
     position: absolute; /* Allows free movement */
     top: 50%; /* Adjust this to move up/down */
-    margin-left: 975px; /* Move left (adjust value as needed) */
+    margin-left: 1150px; /* Move left (adjust value as needed) */
     transform: translate(-50%, -50%); /* Centers it based on its own size */
     max-width: 800px; /* Adjust width as needed */
     width: 100%;
