@@ -127,12 +127,27 @@ def get_doctors():
     try:
         conn = get_db_connection()
         cursor = conn.cursor()
-        doctors = cursor.execute("SELECT * FROM doctors").fetchall()
+
+        # Fetch latest user data to get their city and state
+        user = cursor.execute("SELECT city, state FROM users ORDER BY id DESC LIMIT 1").fetchone()
+
+        if not user:
+            conn.close()
+            return jsonify({"error": "No user data available"}), 404
+
+        user_city = user["city"].strip().upper()  # Normalize city input
+        user_state = user["state"].strip().upper()  # Normalize state input
+
+        # Fetch doctors only from the same city and state
+        doctors = cursor.execute(
+            "SELECT * FROM doctors WHERE city = ? AND state = ? LIMIT 10",
+            (user_city, user_state)
+        ).fetchall()
+
         conn.close()
 
-        # Convert SQLite rows to dictionary
-        doctor_list = [dict(row) for row in doctors]
-        return jsonify(doctor_list), 200
+        # Convert results to JSON format
+        return jsonify([dict(doc) for doc in doctors]), 200
     except Exception as e:
         print("Error:", e)
         return jsonify({"error": "Internal Server Error"}), 500

@@ -199,7 +199,7 @@ function displayDoctors(doctors) {
     doctorsList.innerHTML = "";
 
     if (doctors.length === 0) {
-        message.textContent = "No doctors found in your state.";
+        message.textContent = "No doctors found in your city.";
         return;
     }
 
