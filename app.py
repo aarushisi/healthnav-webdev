@@ -110,7 +110,6 @@ def save_followup():
 
 ### Retrieve User & Symptom Data for Display ###
 @app.route("/get-user-data", methods=["GET"])
-@app.route("/get-user-data", methods=["GET"])
 def get_user_data():
     conn = get_db_connection()
     cursor = conn.cursor()
@@ -120,7 +119,13 @@ def get_user_data():
     if not user:
         return jsonify({"error": "No user data available"}), 404
 
-    return jsonify(dict(user)), 200  # ✅ Correct return statement
+    user_dict = dict(user)
+
+    # ✅ Quick fix: Add symptom data from in-memory store
+    symptom_info = symptom_data_store.get("default", {})
+    user_dict["symptoms"] = symptom_info.get("symptoms", "Not provided")
+
+    return jsonify(user_dict), 200
 
 @app.route("/get-doctors", methods=["GET"])
 def get_doctors():
