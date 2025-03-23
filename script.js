@@ -189,6 +189,13 @@ document.addEventListener("DOMContentLoaded", function() {
             })
             .catch(error => console.error("Error fetching user data:", error));
     }
+
+    const arrowButton = document.getElementById("arrow-btn");
+    if (arrowButton) {
+        arrowButton.addEventListener("click", function() {
+            console.log("Arrow button clicked — no action yet.");
+        });
+    }
 });
 
 function displayDoctors(doctors) {
