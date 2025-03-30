@@ -17,7 +17,7 @@ html, body {
 /* Styling for the subheading */
 #welcome-subtitle {
     font-size: 2rem;
-    color: #411115;
+    color: #095D7E;
     margin-bottom: 50px;
 }
 
@@ -27,11 +27,11 @@ html, body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    color: #24B0BA;
+    color: #f1f9ff;
 }
 
 h1 {
-    color: #24B0BA;
+    color: #f1f9ff;
     font-size: 3rem;  /* Adjust font size */
     font-weight: bold;
 }
@@ -39,7 +39,7 @@ h1 {
 /* Button styling for the welcome page */
 #get-started-btn {
     padding: 20px 30px;
-    background-color: #24B0BA;
+    background-color: #f1f9ff;
     color: #FFF9F0;
     border: none;
     border-radius: 4px;
@@ -51,8 +51,8 @@ h1 {
 
 /* Hover effect for the button */
 #get-started-btn:hover {
-    background-color: #411115;
-    color: #24B0BA
+    background-color: #095D7E;
+    color: #f1f9ff;
 }
 
 /* Language Dropdown Styling */
@@ -66,7 +66,7 @@ h1 {
     padding: 8px 16px;
     border: 2px solid #FFF9F0;
     border-radius: 20px; /* Oval shape */
-    background-color: #24B0BA;
+    background-color: #f1f9ff;
     font-size: 1rem;
     cursor: pointer;
     color: #FFF9F0;
@@ -83,7 +83,7 @@ body {
 
 /* Form styling */
 #info-form {
-    background-color: #411115;
+    background-color: #095D7E;
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -105,7 +105,7 @@ body {
 #address-fields select {
     flex: 1; /* Ensures equal width */
     padding: 8px;
-    border: 1px solid #24B0BA;
+    border: 1px solid #f1f9ff;
     border-radius: 4px;
     box-sizing: border-box;
 }
@@ -157,14 +157,14 @@ input[type="text"], input[type="number"], select {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
-    border: 1px solid #24B0BA;
+    border: 1px solid #f1f9ff;
     border-radius: 4px;
     box-sizing: border-box; /* Make sure padding is included in the width */
 }
 
 input[type="submit"] {
     padding: 10px 20px;
-    background-color: #24B0BA;
+    background-color: #f1f9ff;
     color: #FFF9F0;
     border: none;
     border-radius: 4px;
@@ -175,7 +175,7 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
     background-color: #FFF9F0;
-    color: #411115;
+    color: #095D7E;
 }
 
 /* Centering the Symptoms Page */
@@ -193,21 +193,21 @@ input[type="submit"]:hover {
 .symptoms-container h2 {
     font-size: 4rem; /* Increase text size */
     margin-bottom: 30px; /* Move text slightly higher */
-    color: #24B0BA; /* Ensure visibility */
+    color: #f1f9ff; /* Ensure visibility */
 }
 
 /* Style for the Textbox */
 #symptoms-box {
     width: 750px; /* Adjustable width */
     height: 425px; /* Adjustable height */
-    border: 12px solid #411115; /* Thick border */
+    border: 12px solid #095D7E; /* Thick border */
     border-radius: 12px; /* Rounded corners */
     padding: 15px;
     font-size: 1.5rem; /* Increase font size for input */
     resize: both; /* Allows resizing */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
     background-color: #FFF9F0;
-    color: #411115; /* Change user input text color */
+    color: #095D7E; /* Change user input text color */
 }
 
 /* Ensure it stays centered when resized */
@@ -222,7 +222,7 @@ input[type="submit"]:hover {
 #submit-symptoms-btn {
     padding: 15px 30px;  /* Increase button size */
     font-size: 1.3rem;  /* Make text larger */
-    background-color: #24B0BA;
+    background-color: #f1f9ff;
     color: #FFF9F0;
     border: none;
     border-radius: 4px;
@@ -233,8 +233,8 @@ input[type="submit"]:hover {
 
 /* Hover effect for button */
 #submit-symptoms-btn:hover {
-    background-color: #411115;
-    color: #24B0BA;
+    background-color: #095D7E;
+    color: #f1f9ff;
 }
 
 #symptoms-button-group {
@@ -246,7 +246,7 @@ input[type="submit"]:hover {
 #arrow-btn {
     padding: 15px 30px;  /* Increase button size */
     font-size: 1.3rem;  /* Make text larger */
-    background-color: #24B0BA;
+    background-color: #008bba;
     color: #FFF9F0;
     border: none;
     border-radius: 4px;
@@ -256,13 +256,13 @@ input[type="submit"]:hover {
 }
 
 #arrow-btn:hover {
-    background-color: #411115;
-    color: #24B0BA;
+    background-color: #095D7E;
+    color: #f1f9ff;
 }
 
 /* Display Page Styling */
 .profile-container {
-    background-color: #411115;
+    background-color: #095D7E;
     padding: 40px; /* More padding for a larger box */
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -278,7 +278,7 @@ input[type="submit"]:hover {
 .profile-container p strong {
     font-weight: bold;
     font-size: 1.6rem; /* Larger labels */
-    color: #24B0BA; /* Teal color */
+    color: #f1f9ff; /* Teal color */
     display: inline-block;
     margin-bottom: 5px;
 }
@@ -307,18 +307,18 @@ input[type="submit"]:hover {
     left: 0;
     width: 250px;
     height: 100%;
-    background: linear-gradient(180deg, #411115, #6b1f23); /* Gradient effect */
+    background: linear-gradient(180deg, #0d1075, #242b7b); /* Gradient effect */
     padding: 20px;
     box-sizing: border-box;
     color: #FFF9F0;
-    box-shadow: 4px 0 10px #411115; /* Subtle shadow effect */
+    box-shadow: 4px 0 10px #095D7E; /* Subtle shadow effect */
     transition: all 0.3s ease-in-out;
 }
 
 /* Sidebar Title */
 .sidebar h2 {
     font-size: 2rem;
-    color: #24B0BA;
+    color: #f1f9ff;
     margin-bottom: 20px;
     text-align: center;
     font-weight: bold;
@@ -341,16 +341,16 @@ input[type="submit"]:hover {
 
 /* Sidebar Hover Effects */
 .sidebar a:hover {
-    background: #24B0BA;
-    color: #411115;
+    background: #f1f9ff;
+    color: #095D7E;
     transform: translateX(5px); /* Moves link slightly to the right on hover */
-    box-shadow: 2px 2px 10px #24B0BA;
+    box-shadow: 2px 2px 10px #f1f9ff;
 }
 
 /* Sidebar Active Link Effect */
 .sidebar a:active {
     background: #FFF9F0;
-    color: #411115;
+    color: #095D7E;
     font-weight: bold;
 }
 
@@ -366,7 +366,7 @@ input[type="submit"]:hover {
 /* Correct Button - Styled like other buttons */
 #correct-btn {
     padding: 15px 30px;
-    background-color: #24B0BA;
+    background-color: #f1f9ff;
     color: #FFF9F0;
     border: none;
     border-radius: 4px;
@@ -379,8 +379,8 @@ input[type="submit"]:hover {
 
 /* Hover effect */
 #correct-btn:hover {
-    background-color: #411115;
-    color: #24B0BA;
+    background-color: #095D7E;
+    color: #f1f9ff;
 }
 
 /* Centered Doctors Box */
@@ -391,7 +391,7 @@ input[type="submit"]:hover {
     transform: translate(-50%, -50%); /* Centers it based on its own size */
     max-width: 800px; /* Adjust width as needed */
     width: 100%;
-    background-color: #411115; /* Dark background */
+    background-color: #095D7E; /* Dark background */
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
@@ -419,7 +419,7 @@ input[type="submit"]:hover {
     font-weight: bold;
     color: #FFF9F0;
     padding: 10px;
-    border-bottom: 2px solid #24B0BA;
+    border-bottom: 2px solid #f1f9ff;
 }
 
 
