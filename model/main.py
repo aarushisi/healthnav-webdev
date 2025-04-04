@@ -1,17 +1,35 @@
+from flask import Flask, request, jsonify
 import faiss
 import numpy as np
 from datetime import datetime
-from sentence_transformers import SentenceTransformer
 from model import medical_model
+from model import embedding_model
+from doctor_matcher import match_doctor
 
-# Initialize SentenceTransformer for embeddings
-embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
+app = Flask(__name__)
+
 
 # Per-user FAISS index storage
 conversation_history = {
     "user": [],
     "assistant": []
 }
+
+@app.route('/match-doctor', methods=['POST'])
+def match_doctor_route():
+    user_input = ""
+    for line in conversation_history["user"]:
+        user_input += line.strip()
+
+    if not user_input:
+        return jsonify({"error": "No input provided"}), 400
+
+    doctor_suggestions = match_doctor(user_input)
+    return jsonify({"matches": doctor_suggestions})
+
+# WARNING! GLOBAL VARIABLE FOR USE OF DEMO!
+# Proper version should have different indexes for each user.
+index = faiss.IndexFlatL2(384)
 
 def log_entry(speaker, message):
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -50,6 +68,8 @@ def create_faiss_index():
     index = faiss.IndexFlatL2(384)  # 384 is the embedding size for all-MiniLM-L6-v2
     return index
 
+# WARNING! Future version needs to account for multiple users!
+# For demo build, one user is ok
 def retrieve_context(query, top_k=2):
     """Retrieves relevant past conversations for a user."""
     query_embedding = np.array([embedding_model.encode(query)])
@@ -64,7 +84,9 @@ def retrieve_context(query, top_k=2):
     retrieved_docs = [conversation_history["user"][i] for i in indices[0] if i < len(conversation_history["user"])]
     return "\n".join(retrieved_docs) if retrieved_docs else "No relevant documents found."
 
-def update_conversation(user_input, model_response, index):
+# WARNING! Future version needs to account for multiple users!
+# For demo build, one user is ok
+def update_conversation(user_input, model_response):
     log_entry("user", user_input)
     log_entry("assistant", model_response)
 
@@ -74,7 +96,9 @@ def update_conversation(user_input, model_response, index):
     # Save updated FAISS index
     faiss.write_index(index, "retrieval_index.faiss")
 
-def ask(question, index):
+# WARNING! Future version needs to account for multiple users!
+# For demo build, one user is ok
+def ask(question):
     """Generates a medical response using the LLaMA model."""
     retrieved_info = retrieve_context(question)
     prompt = f"""
@@ -89,19 +113,31 @@ def ask(question, index):
     update_conversation(question, response, index)
     return response
 
-def main():
-    # find history.txt
-    # read history.txt into previous messages + encode
+
+@app.route('/submit-symptoms', methods=['POST'])
+def submit_symptoms():
+    """Receives symptoms from the frontend and processes them."""
+    data = request.get_json()
+    symptoms = data.get("symptoms", "").strip()
+
+    if not symptoms:
+        return jsonify({"error": "No symptoms provided"}), 400
     
-    index = create_faiss_index()
-    load_history(index)
-    # start True loop until 'quit'
-    while True:
-        question = input("How can I help you? Tell me about your symptoms, what type of doctor you are looking for, or just type 'quit' to leave.")
-        match question.lower():
-            case 'quit':
-                break
-            case _:
-                ask(question, index)
+    # WARNING! 
+    # Because demo does not account for multiple users or leaving the site,
+    # load_history(index) does not work properly.
+    # write_history does but not yet
+
+    response_text = ask(symptoms)
+
+    update_conversation(symptoms, response_text)
     
-    write_history()
+    response = {
+        "message": "Symptoms received and processed successfully.",
+        "response": response_text
+    }
+
+    return jsonify(response)
+
+if __name__ == "__main__":
+    app.run(debug=True)
