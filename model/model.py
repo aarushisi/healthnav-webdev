@@ -5,7 +5,7 @@ from doctor_matcher import build_doctor_index
 
 
 class MedicalModel:
-    def __init__(self, model_name="aaditya/OpenBioLLM-Llama3-8B-GGUF", model_file="openbiollm-llama3-8b.Q8_0.gguf"):
+    def __init__(self, model_name="aaditya/OpenBioLLM-Llama3-8B-GGUF", model_file="openbiollm-llama3-8b.Q2_K.gguf"):
         self.model_path = hf_hub_download(model_name, filename=model_file, local_dir=".")
         print(f"Model path: {self.model_path}")
 
