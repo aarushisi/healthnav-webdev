@@ -1,6 +1,6 @@
 import faiss
 import numpy as np
-from model import embedding_model
+from embedding import embedding_model
 
 # These should match index order exactly
 doctor_specialties = [

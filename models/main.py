@@ -3,7 +3,7 @@ import faiss
 import numpy as np
 from datetime import datetime
 from model import medical_model
-from model import embedding_model
+from embedding import embedding_model
 from doctor_match import match_doctor
 
 app = Flask(__name__)
