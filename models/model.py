@@ -37,5 +37,3 @@ if __name__ == "__main__":
     embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
     # Build doctor index on startup
     build_doctor_index()
-else:
-    medical_model = MedicalModel()
