@@ -2,9 +2,9 @@ from flask import Flask, request, jsonify
 import faiss
 import numpy as np
 from datetime import datetime
-from model import medical_model
-from embedding import embedding_model
-from doctor_match import match_doctor
+from models.model import medical_model
+from models.embedding import embedding_model
+from models.doctor_match import match_doctor
 
 app = Flask(__name__)
 
