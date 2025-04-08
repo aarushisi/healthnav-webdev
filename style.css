@@ -188,6 +188,15 @@ input[type="submit"]:hover {
     color: #064158;
 }
 
+#symptom-header {
+    font-size: clamp(1.2rem, 3vw, 2rem); /* Flexible text size */
+    max-width: 700px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+    margin-bottom: 20px;
+}
+
 /* Textbox for Symptoms */
 #symptoms-box {
     width: 750px;

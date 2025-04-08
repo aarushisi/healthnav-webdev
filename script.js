@@ -193,11 +193,17 @@ document.addEventListener("DOMContentLoaded", function() {
     const arrowButton = document.getElementById("arrow-btn");
     if (arrowButton) {
         arrowButton.addEventListener("click", function () {
-            const symptoms = document.getElementById("symptoms-box").value.trim();
+            const symptomBox = document.getElementById("symptoms-box");
+            const header = document.getElementById("symptom-header");
+            const symptoms = symptomBox.value.trim();
+
             if (symptoms === "") {
                 console.log("[ARROW] No symptoms entered.");
                 return;
             }
+
+            symptomBox.value = "";
+            header.textContent = "Loading...";
     
             console.log("[ARROW] Sending symptoms to /followup-arrow:", symptoms);
     
@@ -212,7 +218,9 @@ document.addEventListener("DOMContentLoaded", function() {
                     console.error("[ARROW] Error from server:", data.error);
                 } else {
                     console.log("[ARROW] Response from model:", data.followup_response);
-                    alert("Model Response: " + data.followup_response); // temporary display
+                    // alert("Model Response: " + data.followup_response);
+
+                    header.textContent = data.followup_response;
                 }
             })
             .catch(error => console.error("[ARROW] Request failed:", error));
