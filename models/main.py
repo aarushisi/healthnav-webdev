@@ -130,7 +130,7 @@ def ask(question):
     print(f"[ASK] Retrieved context: {retrieved_info}")
 
     prompt = f"""
-        You are a helpful medical assistant. Ask the user a relevant follow-up question. Do not diagnose. Be clear and reassuring.
+        You are a helpful medical assistant. Give a relevant and specific follow-up question. Do not diagnose. Be clear and reassuring.
         Medical question: {question}
         Previous medical info: {retrieved_info}
         Answer:
