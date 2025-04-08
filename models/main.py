@@ -136,13 +136,18 @@ def ask(question):
     print(f"[ASK] Retrieved context: {retrieved_info}")
 
     prompt = f"""
-        You are a helpful medical assistant. Give a relevant and specific follow-up question. Do not diagnose. Be clear and reassuring.
-        Medical question: {question}
-        Previous medical info: {retrieved_info}
-        Answer:
+        You are a professional medical assistant trained in symptom triage. Based on the user's input, generate one medically specific response question that would help a physician better understand the patient's condition.
+
+        Do not give a diagnosis. Ask a single, focused question using clinical language when appropriate. Be empathetic, clear, and concise.
+
+        Patient's report: {question}
+        Relevant background info: {retrieved_info}
+
+        Output your response question:
     """
+
     print("[ASK] Prompt sent to LLM.")
-    response = medical_model.llm(prompt, max_tokens=50)['choices'][0]['message']['content']
+    response = medical_model.llm(prompt, max_tokens=40)['choices'][0]['message']['content']
     print(f"[ASK] Response received from model: {response}")
     update_conversation(question, response, index)
     return response
