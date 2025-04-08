@@ -1,8 +1,8 @@
 import os
 import torch
 
-os.environ["OMP_NUM_THREADS"] = "1"
-torch.set_num_threads(1)
+os.environ["OMP_NUM_THREADS"] = "4"
+torch.set_num_threads(4)
 
 import numpy as np
 from datetime import datetime
@@ -38,18 +38,13 @@ def match_doctor_route():
     doctor_suggestions = match_doctor(user_input)
     print(f"[DEBUG] Doctor suggestions: {doctor_suggestions}")
     return jsonify({"matches": doctor_suggestions})
-
-
 index = faiss.IndexFlatL2(384)
 print("[INIT] FAISS index initialized with dimension 384.")
-
-
 def log_entry(speaker, message):
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     log_msg = f"[{timestamp}] {message}"
     print(f"[LOG] {speaker.upper()} >> {log_msg}")
     conversation_history[speaker].append(log_msg)
-
 
 def load_history(index, path="conversation_history.txt"):
     print(f"[LOAD] Attempting to load history from {path}")

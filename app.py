@@ -110,7 +110,6 @@ def get_user_data():
 
     user_dict = dict(user)
 
-    # ✅ Quick fix: Add symptom data from in-memory store
     symptom_info = symptom_data_store.get("default", {})
     user_dict["symptoms"] = symptom_info.get("symptoms", "Not provided")
 
