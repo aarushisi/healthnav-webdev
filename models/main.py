@@ -9,8 +9,11 @@ from sentence_transformers import SentenceTransformer
 
 print("[INIT] Import complete. Initializing models...")
 
-medical_model = MedicalModel()
-print("[INIT] MedicalModel initialized.")
+if os.environ.get("WERKZEUG_RUN_MAIN") == "true":
+    medical_model = MedicalModel()
+    print("[INIT] MedicalModel initialized.")
+else:
+    print("[INIT] Skipping model load in Flask watchdog process.")
 
 embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
 print("[INIT] Embedding model loaded: all-MiniLM-L6-v2")

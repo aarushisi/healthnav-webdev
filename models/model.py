@@ -3,7 +3,7 @@ from sentence_transformers import SentenceTransformer
 from models.doctor_match import build_doctor_index
 
 class MedicalModel:
-    def __init__(self, model_name="koesn/llama3-openbiollm-8b:Q5_K_M", host="http://localhost:11434"):
+    def __init__(self, model_name="koesn/llama3-openbiollm-8b:Q4_0", host="http://localhost:11434"):
         self.model_name = model_name
         self.host = host
         print(f"[INIT] MedicalModel initialized with model '{self.model_name}' at host '{self.host}'.")
