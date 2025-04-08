@@ -74,31 +74,28 @@ def save_symptoms():
         return jsonify({"error": "Internal Server Error"}), 500
 
 ### Store Follow-Up & Generate Diagnosis ###
-@app.route("/submit-followup", methods=["POST"])
-def save_followup():
+@app.route("/followup-arrow", methods=["POST"])
+def followup_arrow():
+    print("[FLASK] /followup-arrow route hit.")
     try:
         data = request.get_json()
-        user_id = data.get("user_id", "default")
-        followup_response = data["followup_response"]
+        print(f"[FLASK] Incoming data: {data}")
 
-        # Store follow-up response
-        if user_id in symptom_data_store:
-            symptom_data_store[user_id]["followups"].append(followup_response)
-            follow_up_store[user_id]["count"] += 1
+        symptoms = data.get("symptoms", "").strip()
+        if not symptoms:
+            print("[FLASK] No symptoms provided.")
+            return jsonify({"error": "No symptoms provided"}), 400
 
-            # After 2 follow-ups, analyze symptoms for diagnosis
-            if follow_up_store[user_id]["count"] >= 2:
-                full_response = " ".join([symptom_data_store[user_id]["symptoms"]] + symptom_data_store[user_id]["followups"])
-                diagnosis = analyze_medical_terms(full_response)
-                return jsonify({"diagnosis": diagnosis}), 200
-            else:
-                followup_question = generate_followup(followup_response)
-                return jsonify({"followup_question": followup_question}), 200
+        print(f"[FLASK] Calling main.ask() with symptoms: {symptoms}")
+        response = main.ask(symptoms)
 
-        return jsonify({"error": "User not found"}), 400
+        print(f"[FLASK] Response from main.ask(): {response}")
+        return jsonify({"followup_response": response}), 200
     except Exception as e:
-        print("Error:", e)
+        print(f"[FLASK ERROR] Exception in /followup-arrow: {e}")
         return jsonify({"error": "Internal Server Error"}), 500
+
+
 
 ### Retrieve User & Symptom Data for Display ###
 @app.route("/get-user-data", methods=["GET"])
@@ -151,4 +148,4 @@ def get_doctors():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000, use_reloader=False)
+    app.run(debug=True, port=5002, use_reloader=False)

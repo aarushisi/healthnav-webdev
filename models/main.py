@@ -1,24 +1,22 @@
-import faiss
 import os
+import torch
+
+os.environ["OMP_NUM_THREADS"] = "1"
+torch.set_num_threads(1)
+
 import numpy as np
 from datetime import datetime
 from models.model import MedicalModel
+import faiss
 from models.embedding import embedding_model
 from models.doctor_match import match_doctor
 from sentence_transformers import SentenceTransformer
 
 print("[INIT] Import complete. Initializing models...")
 
-if os.environ.get("WERKZEUG_RUN_MAIN") == "true":
-    medical_model = MedicalModel()
-    print("[INIT] MedicalModel initialized.")
-else:
-    print("[INIT] Skipping model load in Flask watchdog process.")
-
+medical_model = MedicalModel()
 embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
 print("[INIT] Embedding model loaded: all-MiniLM-L6-v2")
-
-#build_doctor_index()
 
 conversation_history = {
     "user": [],
@@ -106,7 +104,12 @@ def retrieve_context(query, top_k=2):
         print("[RETRIEVE] Index is empty.")
         return "No relevant documents found."
 
-    distances, indices = retrieval_index.search(query_embedding, top_k)
+    try:
+        distances, indices = retrieval_index.search(query_embedding, top_k)
+    except RuntimeError as e:
+        print("[RETRIEVE] FAISS search error:", e)
+        return "No relevant documents found."
+        
     print(f"[RETRIEVE] Distances: {distances[0]}, Indices: {indices[0]}")
     retrieved_docs = [conversation_history["user"][i] for i in indices[0] if i < len(conversation_history["user"])]
     print(f"[RETRIEVE] Retrieved docs: {retrieved_docs}")

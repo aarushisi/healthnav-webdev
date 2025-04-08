@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 zip: document.getElementById('zip').value.trim()
             };
 
-            fetch("http://127.0.0.1:5000/submit", {
+            fetch("http://127.0.0.1:5002/submit", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(userData)
@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             const symptomData = { symptoms: symptoms };
 
-            fetch("http://127.0.0.1:5000/submit-symptoms", {
+            fetch("http://127.0.0.1:5002/submit-symptoms", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(symptomData)
@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Fetch and display user data on the display page
     if (window.location.pathname.includes("display.html")) {
-        fetch("http://127.0.0.1:5000/get-user-data")
+        fetch("http://127.0.0.1:5002/get-user-data")
             .then(response => response.json())
             .then(data => {
                 if (data.error) {
@@ -137,7 +137,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Fetch and display doctors when on the doctors page
     if (window.location.pathname.includes("doctors.html")) {
-        fetch("http://127.0.0.1:5000/get-user-data")
+        fetch("http://127.0.0.1:5002/get-user-data")
             .then(response => response.json())
             .then(userData => {
                 if (userData.error) {
@@ -148,7 +148,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 const userState = userData.state;  // Extract user's state
 
                 // Fetch doctors and filter by state
-                fetch("http://127.0.0.1:5000/get-doctors")
+                fetch("http://127.0.0.1:5002/get-doctors")
                     .then(response => response.json())
                     .then(doctors => {
                         const filteredDoctors = doctors
@@ -164,7 +164,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     if (window.location.pathname.includes("doctors.html")) {
-        fetch("http://127.0.0.1:5000/get-user-data")
+        fetch("http://127.0.0.1:5002/get-user-data")
             .then(response => response.json())
             .then(userData => {
                 if (userData.error) {
@@ -175,7 +175,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 const userState = userData.state;
 
                 // Fetch doctors and filter by state
-                fetch("http://127.0.0.1:5000/get-doctors")
+                fetch("http://127.0.0.1:5002/get-doctors")
                     .then(response => response.json())
                     .then(doctors => {
                         const filteredDoctors = doctors
@@ -192,10 +192,32 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const arrowButton = document.getElementById("arrow-btn");
     if (arrowButton) {
-        arrowButton.addEventListener("click", function() {
-            console.log("Arrow button clicked — no action yet.");
+        arrowButton.addEventListener("click", function () {
+            const symptoms = document.getElementById("symptoms-box").value.trim();
+            if (symptoms === "") {
+                console.log("[ARROW] No symptoms entered.");
+                return;
+            }
+    
+            console.log("[ARROW] Sending symptoms to /followup-arrow:", symptoms);
+    
+            fetch("http://127.0.0.1:5002/followup-arrow", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ symptoms: symptoms })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    console.error("[ARROW] Error from server:", data.error);
+                } else {
+                    console.log("[ARROW] Response from model:", data.followup_response);
+                    alert("Model Response: " + data.followup_response); // temporary display
+                }
+            })
+            .catch(error => console.error("[ARROW] Request failed:", error));
         });
-    }
+    }       
 });
 
 function displayDoctors(doctors) {
