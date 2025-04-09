@@ -13,22 +13,24 @@
         <a href="symptoms.html">Symptoms</a>
     </div>
 
-    <!-- New wrapper to control movement of the profile container -->
-    <div id="profile-container-wrapper">
+    <!-- Outer wrapper to center everything beside the sidebar -->
+    <div id="profile-page-content">
         <div class="profile-container">
             <p><strong>Name:</strong> <span id="profile-name">Loading...</span></p>
             <p><strong>Age:</strong> <span id="profile-age">Loading...</span></p>
             <p><strong>Gender:</strong> <span id="profile-gender">Loading...</span></p>
             <p><strong>Insurance Provider:</strong> <span id="profile-insurance">Loading...</span></p>
             <p><strong>Address:</strong> <span id="profile-address">Loading...</span></p>
-            <p><strong>Symptoms:</strong> <span id="profile-symptoms">Loading...</span></p>
+            <p><strong>Symptoms:</strong></p>
+            <div id="profile-symptoms-scroll">
+                <pre id="profile-symptoms">Loading...</pre>
+            </div>
+            <div id="correct-btn-container">
+                <button id="correct-btn">Correct</button>
+            </div>
         </div>
     </div>
 
-    <div id="correct-btn-container">
-        <button id="correct-btn">Correct</button>
-    </div>
-
-    <script src="script.js"></script> <!-- Link JavaScript file -->
+    <script src="script.js"></script>
 </body>
 </html>

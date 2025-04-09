@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 zip: document.getElementById('zip').value.trim()
             };
 
-            fetch("http://127.0.0.1:5000/submit", {
+            fetch("http://127.0.0.1:5002/submit", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(userData)
@@ -89,28 +89,42 @@ document.addEventListener("DOMContentLoaded", function() {
     // Symptoms Submission (Redirects to display page automatically)
     const symptomsButton = document.getElementById('submit-symptoms-btn');
     if (symptomsButton) {
-        symptomsButton.addEventListener("click", function() {
+        symptomsButton.addEventListener("click", function () {
             const symptoms = document.getElementById("symptoms-box").value.trim();
-            if (symptoms === "") return; // Prevent empty submissions
-
-            const symptomData = { symptoms: symptoms };
-
-            fetch("http://127.0.0.1:5000/submit-symptoms", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(symptomData)
-            })
-            .then(response => response.json())
-            .then(() => {
-                window.location.href = "display.html"; // Auto-redirect to display page
-            })
-            .catch(error => console.error("Error sending symptoms:", error));
+    
+            // First fetch conversation status from server
+            fetch("http://127.0.0.1:5002/conversation-status")
+                .then(response => response.json())
+                .then(status => {
+                    const hasHistory = status.has_user_input;
+    
+                    if (symptoms === "" && !hasHistory) {
+                        console.log("[SUBMIT] Cannot submit: textbox is empty AND no conversation history.");
+                        return;
+                    }
+    
+                    const symptomData = { symptoms: symptoms };
+    
+                    fetch("http://127.0.0.1:5002/submit-symptoms", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(symptomData)
+                    })
+                    .then(response => response.json())
+                    .then(() => {
+                        window.location.href = "display.html";
+                    })
+                    .catch(error => console.error("Error sending symptoms:", error));
+                })
+                .catch(error => {
+                    console.error("Error fetching conversation status:", error);
+                });
         });
-    }
+    }    
 
     // Fetch and display user data on the display page
     if (window.location.pathname.includes("display.html")) {
-        fetch("http://127.0.0.1:5000/get-user-data")
+        fetch("http://127.0.0.1:5002/get-user-data")
             .then(response => response.json())
             .then(data => {
                 if (data.error) {
@@ -137,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Fetch and display doctors when on the doctors page
     if (window.location.pathname.includes("doctors.html")) {
-        fetch("http://127.0.0.1:5000/get-user-data")
+        fetch("http://127.0.0.1:5002/get-user-data")
             .then(response => response.json())
             .then(userData => {
                 if (userData.error) {
@@ -148,7 +162,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 const userState = userData.state;  // Extract user's state
 
                 // Fetch doctors and filter by state
-                fetch("http://127.0.0.1:5000/get-doctors")
+                fetch("http://127.0.0.1:5002/get-doctors")
                     .then(response => response.json())
                     .then(doctors => {
                         const filteredDoctors = doctors
@@ -164,7 +178,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     if (window.location.pathname.includes("doctors.html")) {
-        fetch("http://127.0.0.1:5000/get-user-data")
+        fetch("http://127.0.0.1:5002/get-user-data")
             .then(response => response.json())
             .then(userData => {
                 if (userData.error) {
@@ -175,7 +189,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 const userState = userData.state;
 
                 // Fetch doctors and filter by state
-                fetch("http://127.0.0.1:5000/get-doctors")
+                fetch("http://127.0.0.1:5002/get-doctors")
                     .then(response => response.json())
                     .then(doctors => {
                         const filteredDoctors = doctors
@@ -192,10 +206,40 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const arrowButton = document.getElementById("arrow-btn");
     if (arrowButton) {
-        arrowButton.addEventListener("click", function() {
-            console.log("Arrow button clicked — no action yet.");
+        arrowButton.addEventListener("click", function () {
+            const symptomBox = document.getElementById("symptoms-box");
+            const header = document.getElementById("symptom-header");
+            const symptoms = symptomBox.value.trim();
+
+            if (symptoms === "") {
+                console.log("[ARROW] No symptoms entered.");
+                return;
+            }
+
+            symptomBox.value = "";
+            header.textContent = "Loading...";
+    
+            console.log("[ARROW] Sending symptoms to /followup-arrow:", symptoms);
+    
+            fetch("http://127.0.0.1:5002/followup-arrow", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ symptoms: symptoms })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    console.error("[ARROW] Error from server:", data.error);
+                } else {
+                    console.log("[ARROW] Response from model:", data.followup_response);
+                    // alert("Model Response: " + data.followup_response);
+
+                    header.textContent = data.followup_response;
+                }
+            })
+            .catch(error => console.error("[ARROW] Request failed:", error));
         });
-    }
+    }       
 });
 
 function displayDoctors(doctors) {
