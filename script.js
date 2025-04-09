@@ -89,24 +89,38 @@ document.addEventListener("DOMContentLoaded", function() {
     // Symptoms Submission (Redirects to display page automatically)
     const symptomsButton = document.getElementById('submit-symptoms-btn');
     if (symptomsButton) {
-        symptomsButton.addEventListener("click", function() {
+        symptomsButton.addEventListener("click", function () {
             const symptoms = document.getElementById("symptoms-box").value.trim();
-            if (symptoms === "") return; // Prevent empty submissions
-
-            const symptomData = { symptoms: symptoms };
-
-            fetch("http://127.0.0.1:5002/submit-symptoms", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(symptomData)
-            })
-            .then(response => response.json())
-            .then(() => {
-                window.location.href = "display.html"; // Auto-redirect to display page
-            })
-            .catch(error => console.error("Error sending symptoms:", error));
+    
+            // First fetch conversation status from server
+            fetch("http://127.0.0.1:5002/conversation-status")
+                .then(response => response.json())
+                .then(status => {
+                    const hasHistory = status.has_user_input;
+    
+                    if (symptoms === "" && !hasHistory) {
+                        console.log("[SUBMIT] Cannot submit: textbox is empty AND no conversation history.");
+                        return;
+                    }
+    
+                    const symptomData = { symptoms: symptoms };
+    
+                    fetch("http://127.0.0.1:5002/submit-symptoms", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(symptomData)
+                    })
+                    .then(response => response.json())
+                    .then(() => {
+                        window.location.href = "display.html";
+                    })
+                    .catch(error => console.error("Error sending symptoms:", error));
+                })
+                .catch(error => {
+                    console.error("Error fetching conversation status:", error);
+                });
         });
-    }
+    }    
 
     // Fetch and display user data on the display page
     if (window.location.pathname.includes("display.html")) {

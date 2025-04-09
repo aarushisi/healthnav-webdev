@@ -251,10 +251,21 @@ input[type="submit"]:hover {
     transform: translateY(-2px);
 }
 
+#profile-page-content {
+    position: absolute;
+    top: 0;
+    left: 250px; /* equal to sidebar width */
+    width: calc(100% - 250px);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 /* Display Page Styling */
 .profile-container {
     background-color: #064158;
-    padding: 40px;
+    padding: 24px; /* was 40px */
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     width: 90%;
@@ -262,28 +273,40 @@ input[type="submit"]:hover {
     box-sizing: border-box;
     color: #FFF9F0;
     text-align: left;
-    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
+
 .profile-container p strong {
     font-weight: 700;
-    font-size: 1.6rem;
+    font-size: 1.2rem; /* was 1.6rem */
+    margin-bottom: 3px;
     color: #FFF9F0;
     display: inline-block;
-    margin-bottom: 5px;
 }
+
 .profile-container span {
-    font-size: 1.6rem;
+    font-size: 1.2rem;
     color: #FFF9F0;
     display: inline;
 }
-#profile-container-wrapper {
-    display: absolute;
-    justify-content: flex-start; /* Align to the left */
-    align-items: center;
-    height: 80vh;
-    width: 100%;
-    margin-top: 160px;
-    margin-left: 465px; /* Move left (adjust value as needed) */
+
+#profile-symptoms-scroll {
+    max-height: 150px;
+    overflow-y: auto;
+    background-color: #FFF9F0;
+    color: #064158;
+    border: 2px solid #528da4;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 1rem;
+    white-space: pre-wrap;
+    line-height: 1.4;
+    margin-top: -5px;
+    margin-bottom: 16px;
+    width: 100%; /* Keep it inside the parent container */
+    box-sizing: border-box; /* Ensures border/padding don’t expand it */
 }
 
 /* Sidebar Styling */
@@ -333,17 +356,11 @@ input[type="submit"]:hover {
 }
 
 /* Floating Correct Button Container */
-#correct-btn-container {
-    position: absolute;
-    top: 80%;
-    transform: translate(-50%, -50%);
-    z-index: 10;
-    margin-left: 350px;
-}
+
 #correct-btn {
     padding: 15px 30px;
-    background-color: #064158;
-    color: #FFF9F0;
+    background-color: #528da4;
+    color: #064158;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -353,7 +370,7 @@ input[type="submit"]:hover {
     text-align: center;
 }
 #correct-btn:hover {
-    background-color: #528da4;
+    background-color: #FFF9F0;
     transform: translateY(-2px);
 }
 

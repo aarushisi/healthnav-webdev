@@ -1,6 +1,7 @@
 import sqlite3
 from flask import Flask, request, jsonify, send_from_directory
 import models.main as main
+from datetime import datetime
 
 app = Flask(__name__, static_folder=".")
 
@@ -54,25 +55,6 @@ def save_user_data():
         print("Error:", e)
         return jsonify({"error": "Internal Server Error"}), 500
 
-### Store Symptoms & Generate Follow-Up ###
-@app.route("/submit-symptoms", methods=["POST"])
-def save_symptoms():
-    try:
-        data = request.get_json()
-        user_id = data.get("user_id", "default")  # Temporary user session handling
-        symptoms = data["symptoms"]
-
-        if user_id not in symptom_data_store:
-            symptom_data_store[user_id] = {"symptoms": symptoms, "followups": []}
-            follow_up_store[user_id] = {"count": 0}
-
-        # Generate a follow-up question
-        followup_question = generate_followup(symptoms)
-        return jsonify({"followup_question": followup_question}), 200
-    except Exception as e:
-        print("Error:", e)
-        return jsonify({"error": "Internal Server Error"}), 500
-
 ### Store Follow-Up & Generate Diagnosis ###
 @app.route("/followup-arrow", methods=["POST"])
 def followup_arrow():
@@ -95,7 +77,10 @@ def followup_arrow():
         print(f"[FLASK ERROR] Exception in /followup-arrow: {e}")
         return jsonify({"error": "Internal Server Error"}), 500
 
-
+@app.route("/conversation-status", methods=["GET"])
+def conversation_status():
+    has_user_input = len(main.conversation_history["user"]) > 0
+    return jsonify({"has_user_input": has_user_input})
 
 ### Retrieve User & Symptom Data for Display ###
 @app.route("/get-user-data", methods=["GET"])
@@ -114,6 +99,39 @@ def get_user_data():
     user_dict["symptoms"] = symptom_info.get("symptoms", "Not provided")
 
     return jsonify(user_dict), 200
+
+@app.route("/submit-symptoms", methods=["POST"])
+def submit_symptoms():
+    try:
+        data = request.get_json()
+        if data is None:
+            return jsonify({"error": "No JSON received"}), 400
+
+        textbox_symptoms = data.get("symptoms", "").strip()
+        chat_history = main.conversation_history["user"]
+
+        extra_input = ""
+        if textbox_symptoms:
+            timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            extra_input = f"[{timestamp}] {textbox_symptoms}"
+
+        # Combine everything together
+        full_input = "\n".join(chat_history)
+        if extra_input:
+            full_input += f"\n{extra_input}"
+
+        if not full_input.strip():
+            return jsonify({"error": "No symptoms to submit"}), 400
+
+        # Save the complete set into the in-memory store
+        symptom_data_store["default"] = {"symptoms": full_input.strip()}
+        print(f"[SYMPTOM SUBMIT] Full symptoms saved:\n{full_input}")
+        return jsonify({"message": "Full symptoms submitted"}), 200
+
+    except Exception as e:
+        print("[ERROR] Exception in /submit-symptoms:", e)
+        return jsonify({"error": "Internal Server Error"}), 500
+
 
 @app.route("/get-doctors", methods=["GET"])
 def get_doctors():

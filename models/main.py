@@ -146,29 +146,3 @@ def ask(question):
     print(f"[ASK] Response received from model: {response}")
     update_conversation(question, response, index)
     return response
-
-
-def submit_symptoms():
-    print("[ROUTE] submit_symptoms called.")
-    data = request.get_json()
-    print(f"[INPUT] Raw JSON: {data}")
-    symptoms = data.get("symptoms", "").strip()
-    print(f"[INPUT] Extracted symptoms: '{symptoms}'")
-
-    if not symptoms:
-        print("[ERROR] No symptoms provided.")
-        return jsonify({"error": "No symptoms provided"}), 400
-
-    response_text = ask(symptoms)
-    print(f"[OUTPUT] Generated response: {response_text}")
-
-    update_conversation(symptoms, response_text)
-    print("[ROUTE] Conversation updated.")
-
-    response = {
-        "message": "Symptoms received and processed successfully.",
-        "response": response_text
-    }
-
-    print("[ROUTE] Returning response JSON.")
-    return jsonify(response)
