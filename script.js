@@ -261,7 +261,7 @@ function displayDoctors(doctors) {
 
     limitedDoctors.forEach(doctor => {
         const listItem = document.createElement("li");
-        listItem.textContent = `${doctor.first_name} ${doctor.last_name}, ${doctor.degree} - ${doctor.city}, ${doctor.state}`;
+        listItem.textContent = `${doctor.first_name} ${doctor.last_name}, ${doctor.degree} - ${doctor.city}, ${doctor.state} - ${doctor.phone}`;
         doctorsList.appendChild(listItem);
     });
 }
