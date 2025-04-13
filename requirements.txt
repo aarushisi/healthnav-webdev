@@ -4,3 +4,4 @@ requests
 faiss-cpu
 sentence-transformers
 google-generativeai
+python-dotenv

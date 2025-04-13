@@ -1,6 +1,7 @@
 import sqlite3
 from flask import Flask, request, jsonify, send_from_directory
 import models.main as main
+import models.doctor_match as docmatch
 from datetime import datetime
 
 app = Flask(__name__, static_folder=".")
@@ -15,7 +16,7 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row  # Allows dictionary-like row access
     return conn
 
-### 🏠 Serve Frontend Files ###
+### Serve Frontend Files ###
 @app.route("/")
 def serve_index():
     return send_from_directory(".", "index.html")
@@ -132,37 +133,62 @@ def submit_symptoms():
         print("[ERROR] Exception in /submit-symptoms:", e)
         return jsonify({"error": "Internal Server Error"}), 500
 
-
 @app.route("/get-doctors", methods=["GET"])
 def get_doctors():
     try:
         conn = get_db_connection()
         cursor = conn.cursor()
 
-        # Fetch latest user data to get their city and state
-        user = cursor.execute("SELECT city, state FROM users ORDER BY id DESC LIMIT 1").fetchone()
-
+        # Fetch user info
+        user = cursor.execute("SELECT age, city, state FROM users ORDER BY id DESC LIMIT 1").fetchone()
         if not user:
             conn.close()
             return jsonify({"error": "No user data available"}), 404
 
-        user_city = user["city"].strip().upper()  # Normalize city input
-        user_state = user["state"].strip().upper()  # Normalize state input
+        age = int(user["age"])
+        city = user["city"].strip().upper()
+        state = user["state"].strip().upper()
 
-        # Fetch doctors only from the same city and state
-        doctors = cursor.execute(
-            "SELECT * FROM doctors WHERE city = ? AND state = ? LIMIT 10",
-            (user_city, user_state)
-        ).fetchall()
+        # Try fetching the predicted specialty
+        try:
+            user_input = "\n".join(main.conversation_history["user"])
+            predicted_specialty = docmatch.match_doctor(user_input, top_k=1)[0]["specialty"]
+            print(f"[SPECIALTY] Using predicted specialty: {predicted_specialty}")
+        except Exception as e:
+            print("[FALLBACK] Error getting specialty from model. Defaulting to internal medicine.")
+            predicted_specialty = "Internal Medicine"
+
+        # Query for doctors with predicted specialty
+        query = "SELECT * FROM doctors WHERE city = ? AND state = ? AND specialty LIKE ?"
+        doctors = cursor.execute(query, (city, state, f"%{predicted_specialty}%")).fetchall()
+
+        # If no doctors found, apply fallback
+        if len(doctors) == 0:
+            fallback_specialty = "Pediatrics" if age < 18 else "Internal Medicine"
+            print(f"[FALLBACK] No matches. Using fallback specialty: {fallback_specialty}")
+            doctors = cursor.execute(query, (city, state, f"%{fallback_specialty}%")).fetchall()
 
         conn.close()
-
-        # Convert results to JSON format
         return jsonify([dict(doc) for doc in doctors]), 200
+
     except Exception as e:
-        print("Error:", e)
+        print("[ERROR] Exception in /get-doctors:", e)
         return jsonify({"error": "Internal Server Error"}), 500
 
+
+@app.route("/get-specialty", methods=["GET"])
+def get_specialty():
+    try:
+        user_input = "\n".join(main.conversation_history["user"])
+        if not user_input:
+            return jsonify({"error": "No symptom input available"}), 400
+        
+        top_specialty = docmatch.match_doctor(user_input, top_k=1)[0]["specialty"]
+        print(f"[SPECIALTY] Predicted top specialty: {top_specialty}")
+        return jsonify({"specialty": top_specialty})
+    except Exception as e:
+        print("[ERROR] Exception in /get-specialty:", e)
+        return jsonify({"error": "Internal Server Error"}), 500
 
 if __name__ == "__main__":
     app.run(debug=True, port=5002, use_reloader=False)

@@ -150,6 +150,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Fetch and display doctors when on the doctors page
+    /*
     if (window.location.pathname.includes("doctors.html")) {
         fetch("http://127.0.0.1:5002/get-user-data")
             .then(response => response.json())
@@ -176,33 +177,29 @@ document.addEventListener("DOMContentLoaded", function() {
             })
             .catch(error => console.error("Error fetching user data:", error));
     }
+    */
 
     if (window.location.pathname.includes("doctors.html")) {
-        fetch("http://127.0.0.1:5002/get-user-data")
+        fetch("http://127.0.0.1:5002/get-specialty")
             .then(response => response.json())
-            .then(userData => {
-                if (userData.error) {
-                    console.error("Error fetching user data:", userData.error);
+            .then(specData => {
+                if (specData.error) {
+                    console.error("Specialty error:", specData.error);
                     return;
                 }
-
-                const userState = userData.state;
-
-                // Fetch doctors and filter by state
-                fetch("http://127.0.0.1:5002/get-doctors")
+    
+                const specialty = encodeURIComponent(specData.specialty);
+                console.log("Using predicted specialty:", specialty);
+    
+                fetch(`http://127.0.0.1:5002/get-doctors?specialty=${specialty}`)
                     .then(response => response.json())
                     .then(doctors => {
-                        const filteredDoctors = doctors
-                        .filter(doc => doc.state === userState)
-                        .sort((a, b) => a.last_name.localeCompare(b.last_name))
-                        .slice(0, 10); // Limit to first 10 doctors
-
-                        displayDoctors(filteredDoctors);
+                        displayDoctors(doctors);
                     })
                     .catch(error => console.error("Error fetching doctors:", error));
             })
-            .catch(error => console.error("Error fetching user data:", error));
-    }
+            .catch(error => console.error("Error fetching specialty:", error));
+    }    
 
     const arrowButton = document.getElementById("arrow-btn");
     if (arrowButton) {

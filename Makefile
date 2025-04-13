@@ -3,7 +3,7 @@
 install:
 	@echo "📦 Installing required Python packages..."
 	pip install --upgrade pip
-	pip install flask pandas requests faiss-cpu sentence-transformers google-generativeai
+	pip install -r requirements.txt
 
 serve:
 	@echo "🔌 Starting Ollama server (if not already running)..."

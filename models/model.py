@@ -1,5 +1,6 @@
 import requests
 from sentence_transformers import SentenceTransformer
+from models.embedding import embedding_model
 from models.doctor_match import build_doctor_index
 
 class MedicalModel:
@@ -7,6 +8,8 @@ class MedicalModel:
         self.model_name = model_name
         self.host = host
         print(f"[INIT] MedicalModel initialized with model '{self.model_name}' at host '{self.host}'.")
+        build_doctor_index()
+        print(f"[INIT] Doctor Index Initialized")
 
     def llm(self, prompt, max_tokens=40):
         print(f"[LLM] Preparing to send prompt to model.")
@@ -26,7 +29,7 @@ class MedicalModel:
                         "top_p": 0.9
                     }
                 },
-                timeout=600  # ⏱ 10-minute timeout
+                timeout = 180
             )
             print("[LLM] Request sent. Awaiting response...")
             response.raise_for_status()
