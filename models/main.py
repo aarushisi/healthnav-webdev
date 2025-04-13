@@ -1,6 +1,10 @@
 import os
+from dotenv import load_dotenv
+load_dotenv()
+
 import google.generativeai as genai
 import torch
+import time
 from concurrent.futures import ThreadPoolExecutor, wait, FIRST_COMPLETED
 
 os.environ["OMP_NUM_THREADS"] = "4"
@@ -12,13 +16,12 @@ from models.model import MedicalModel
 import faiss
 from models.embedding import embedding_model
 from models.doctor_match import match_doctor
-from sentence_transformers import SentenceTransformer
 
 print("[INIT] Import complete. Initializing models...")
 
 medical_model = MedicalModel()
-embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
-print("[INIT] Embedding model loaded: all-MiniLM-L6-v2")
+#embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
+#print("[INIT] Embedding model loaded: all-MiniLM-L6-v2")
 
 conversation_history = {
     "user": [],
@@ -125,7 +128,6 @@ def update_conversation(user_input, model_response, index):
     if not os.path.exists("retrieval_index.faiss"):
         print("[UPDATE] Saving updated FAISS index to file.")
         faiss.write_index(index, "retrieval_index.faiss")
-
 
 def ask(question):
     print(f"[ASK] Question received: {question}")
