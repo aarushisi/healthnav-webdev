@@ -1,6 +1,7 @@
 import os
 import google.generativeai as genai
 import torch
+import time
 from concurrent.futures import ThreadPoolExecutor, wait, FIRST_COMPLETED
 
 os.environ["OMP_NUM_THREADS"] = "4"
@@ -126,7 +127,7 @@ def update_conversation(user_input, model_response, index):
         print("[UPDATE] Saving updated FAISS index to file.")
         faiss.write_index(index, "retrieval_index.faiss")
 
-
+'''
 def ask(question):
     print(f"[ASK] Question received: {question}")
     retrieved_info = retrieve_context(question)
@@ -148,3 +149,73 @@ def ask(question):
     print(f"[ASK] Response received from model: {response}")
     update_conversation(question, response, index)
     return response
+'''
+
+GEMINI_API_KEY = os.environ.get("GOOGLE_API_KEY")
+
+def query_gemini(prompt):
+    try:
+        if not GEMINI_API_KEY:
+            raise ValueError("GOOGLE_API_KEY not set in environment.")
+
+        genai.configure(api_key=GEMINI_API_KEY)
+        model = genai.GenerativeModel("gemini-1.5-flash")  # Correct for text input only
+
+        response = model.generate_content(prompt)
+        content = response.text.strip()
+        print("[GEMINI] Response received:", content)
+        return content
+    except Exception as e:
+        print("[GEMINI] Error:", e)
+        return "Sorry, an error occurred with Gemini."
+
+def ask(question):
+    print(f"[ASK] Question received: {question}")
+    retrieved_info = retrieve_context(question)
+    print(f"[ASK] Retrieved context: {retrieved_info}")
+
+    prompt = f"""
+        You are a professional medical assistant trained in symptom triage. Based on the user's input, generate one medically specific response question that would help a physician better understand the patient's condition.
+
+        Do not give a diagnosis. Ask a single, focused question using clinical language when appropriate. Be empathetic, clear, and concise.
+
+        Patient's report: {question}
+        Relevant background info: {retrieved_info}
+
+        Output your response question:
+    """
+
+    print("[ASK] Prompt prepared for both models.")
+
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        openbio_future = executor.submit(time_openbio_call, prompt)
+        gemini_future = executor.submit(query_gemini, prompt)
+
+        # Wait up to 180 seconds for OpenBioLLM
+        try:
+            response, elapsed = openbio_future.result(timeout=60)
+            print(f"[ASK] ✅ OpenBioLLM responded in {elapsed:.2f}s.")
+        except Exception as e:
+            print(f"[ASK] ⚠️ OpenBioLLM timeout or error: {e}")
+
+            try:
+                response = gemini_future.result(timeout=5)  # Give Gemini a short chance to return
+                print("[ASK] ⚠️ Gemini used as fallback.")
+            except Exception as ge:
+                print(f"[ASK] ❌ Gemini also failed: {ge}")
+                response = "Can you tell me more about your symptoms?"  # Default placeholder
+
+    update_conversation(question, response, index)
+    return response
+
+def time_openbio_call(prompt):
+    """Helper to time the model call"""
+    try:
+        start = time.time()
+        result = medical_model.llm(prompt, 40)
+        end = time.time()
+        response_text = result['choices'][0]['message']['content']
+        return response_text, end - start
+    except Exception as e:
+        print(f"[OpenBioLLM ERROR] {e}")
+        return "Sorry, there was a problem with the model.", 999

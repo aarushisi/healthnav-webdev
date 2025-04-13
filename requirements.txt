@@ -1,3 +1,6 @@
-Flask
+flask
+pandas
 requests
-streamlit
+faiss-cpu
+sentence-transformers
+google-generativeai
