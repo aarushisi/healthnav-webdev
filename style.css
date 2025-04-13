@@ -323,31 +323,33 @@ input[type="submit"]:hover {
     box-shadow: 4px 0 10px rgba(0,0,0,0.15);
     transition: all 0.3s ease-in-out;
 }
+/* Sidebar Header - distinguish the title */
 .sidebar h2 {
-    font-size: 2rem;
+    font-size: 1.8rem;
     color: #FFF9F0;
     margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #528da4; /* Adds a clear visual break */
     text-align: center;
     font-weight: 700;
     letter-spacing: 1px;
-    text-transform: uppercase;
 }
 .sidebar a {
     display: block;
     color: #FFF9F0;
     text-decoration: none;
     padding: 12px 15px;
-    margin: 10px 0;
+    margin: 8px 0;
     font-size: 1.2rem;
     font-weight: 600;
     border-radius: 6px;
     transition: background 0.3s, transform 0.2s;
 }
 .sidebar a:hover {
-    background: #528da4;
+    background-color: #528da4;
     color: #064158;
     transform: translateX(5px);
-    box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
 }
 .sidebar a:active {
     background: #528da4;
