@@ -141,7 +141,7 @@ def ask(question):
     print(f"[ASK] Retrieved context: {retrieved_info}")
 
     prompt = f"""
-        You are a licensed clinical assistant specialized in symptom triage. You are speaking with a patient and must ask a medically relevant, single follow-up question to better understand their unique health situation.
+        You are a professional medical assistant trained in symptom triage. Based on the patient information provided below, ask a single relevant follow-up question whose answer would best help you further learn and gain more insight about the patient's specific circumstances and symptoms.
 
         Background info: {retrieved_info}
         Patient's report: {question}
@@ -150,9 +150,8 @@ def ask(question):
         - Do not give a diagnosis.
         - Use clinical language when appropriate. 
         - Be empathetic, clear, and concise.
-        - Avoid generalities or restating the patient’s input.
 
-        Keep your answer short, concise, and relevant
+        Keep you answer SHORT, concise and relevant.
     """
 
     print("[ASK] Prompt sent to LLM.")
