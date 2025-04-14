@@ -3,6 +3,7 @@ from flask import Flask, request, jsonify, send_from_directory
 import models.main as main
 import models.doctor_match as docmatch
 from datetime import datetime
+import re
 
 app = Flask(__name__, static_folder=".")
 
@@ -133,6 +134,12 @@ def submit_symptoms():
         print("[ERROR] Exception in /submit-symptoms:", e)
         return jsonify({"error": "Internal Server Error"}), 500
 
+def format_phone_number(phone):
+    phone_digits = re.sub(r'\D', '', str(phone))
+    if len(phone_digits) == 10:
+        return f"({phone_digits[:3]}) {phone_digits[3:6]}-{phone_digits[6:]}"
+    return phone
+
 @app.route("/get-doctors", methods=["GET"])
 def get_doctors():
     try:
@@ -169,7 +176,14 @@ def get_doctors():
             doctors = cursor.execute(query, (city, state, f"%{fallback_specialty}%")).fetchall()
 
         conn.close()
-        return jsonify([dict(doc) for doc in doctors]), 200
+
+        doctor_list = []
+        for doc in doctors:
+            doctor_dict = dict(doc)
+            doctor_dict["phone"] = format_phone_number(doctor_dict.get("phone", ""))
+            doctor_list.append(doctor_dict)
+
+        return jsonify(doctor_list), 200
 
     except Exception as e:
         print("[ERROR] Exception in /get-doctors:", e)

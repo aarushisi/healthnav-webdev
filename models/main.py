@@ -141,17 +141,15 @@ def ask(question):
     print(f"[ASK] Retrieved context: {retrieved_info}")
 
     prompt = f"""
-        You are a professional medical assistant trained in symptom triage. Based on the patient information provided below, ask a single relevant follow-up question whose answer would best help you further learn and gain more insight about the patient's specific circumstances and symptoms.
+        You are a professional medical assistant trained in symptom triage. Based on the user's input, generate one medically specific response question that would help a physician better understand the patient's condition.
 
-        Background info: {retrieved_info}
+        Do not give a diagnosis. Ask a one sentence question using clinical language when appropriate. Be empathetic, clear, and concise. Only use one sentence. One sentence.
+
         Patient's report: {question}
 
-        Other conditions:
-        - Do not give a diagnosis.
-        - Use clinical language when appropriate. 
-        - Be empathetic, clear, and concise.
+        Relevant background info: {retrieved_info}
 
-        Keep you answer SHORT, concise and relevant.
+        Output your response question:
     """
 
     print("[ASK] Prompt sent to LLM.")
