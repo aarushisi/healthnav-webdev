@@ -132,8 +132,13 @@ def update_conversation(user_input, model_response, index):
 def ask(question):
     print(f"[ASK] Question received: {question}")
     #retrieved_info = retrieve_context(question)
+    
+    if len(conversation_history["user"] > 0):
+        retrieved_info = "\n".join(f"- {msg}" for msg in conversation_history["user"])
+    else:
+        retrieved_info = "No relevant context yet"
+    
     print(f"[ASK] Retrieved context: {retrieved_info}")
-    retrieved_info = "\n".join(f"- {msg}" for msg in conversation_history["user"])
 
     prompt = f"""
         You are a professional medical assistant trained in symptom triage. Based on the user's input, generate one medically specific response question that would help a physician better understand the patient's condition.
