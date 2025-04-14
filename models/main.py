@@ -131,13 +131,14 @@ def update_conversation(user_input, model_response, index):
 
 def ask(question):
     print(f"[ASK] Question received: {question}")
-    retrieved_info = retrieve_context(question)
+    #retrieved_info = retrieve_context(question)
     print(f"[ASK] Retrieved context: {retrieved_info}")
+    retrieved_info = "\n".join(f"- {msg}" for msg in conversation_history["user"])
 
     prompt = f"""
         You are a professional medical assistant trained in symptom triage. Based on the user's input, generate one medically specific response question that would help a physician better understand the patient's condition.
 
-        Do not give a diagnosis. Ask a single, focused question using clinical language when appropriate. Be empathetic, clear, and concise.
+        Do not give a diagnosis. Ask a one sentence question using clinical language when appropriate. Be empathetic, clear, and concise. Only use one sentence. One sentence.
 
         Patient's report: {question}
         Relevant background info: {retrieved_info}

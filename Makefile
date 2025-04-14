@@ -11,7 +11,7 @@ serve:
 
 model:
 	@echo "🧠 Launching LLM model (if not already running)..."
-	@pgrep -f "ollama run koesn/llama3-openbiollm-8b:Q4_K_M" > /dev/null || ollama run koesn/llama3-openbiollm-8b:Q4_K_M &
+	@pgrep -f "ollama run koesn/llama3-openbiollm-8b:Q6_K" > /dev/null || ollama run koesn/llama3-openbiollm-8b:Q6_K &
 
 app:
 	@echo "🌐 Starting Flask app..."
@@ -40,4 +40,4 @@ test:
 stop:
 	@echo "🛑 Stopping Ollama server and LLM model..."
 	@pkill -f "ollama serve" || echo "Ollama server not running."
-	@pkill -f "ollama run koesn/llama3-openbiollm-8b:Q4_K_M" || echo "LLM model not running."
+	@pkill -f "ollama run koesn/llama3-openbiollm-8b:Q6_K" || echo "LLM model not running."

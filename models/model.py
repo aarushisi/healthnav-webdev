@@ -4,7 +4,7 @@ from models.embedding import embedding_model
 from models.doctor_match import build_doctor_index
 
 class MedicalModel:
-    def __init__(self, model_name="koesn/llama3-openbiollm-8b:Q4_K_M", host="http://localhost:11434"):
+    def __init__(self, model_name="koesn/llama3-openbiollm-8b:Q6_K", host="http://localhost:11434"):
         self.model_name = model_name
         self.host = host
         print(f"[INIT] MedicalModel initialized with model '{self.model_name}' at host '{self.host}'.")
@@ -29,7 +29,7 @@ class MedicalModel:
                         "top_p": 0.9
                     }
                 },
-                timeout = 180
+                timeout = 600
             )
             print("[LLM] Request sent. Awaiting response...")
             response.raise_for_status()
