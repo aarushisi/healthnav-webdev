@@ -11,7 +11,7 @@ class MedicalModel:
         build_doctor_index()
         print(f"[INIT] Doctor Index Initialized")
 
-    def llm(self, prompt, max_tokens=40):
+    def llm(self, prompt, max_tokens=100):
         print(f"[LLM] Preparing to send prompt to model.")
         print(f"[LLM] Prompt: {prompt[:200]}{'...' if len(prompt) > 200 else ''}")  # Truncate long prompts
         print(f"[LLM] Max tokens: {max_tokens}")

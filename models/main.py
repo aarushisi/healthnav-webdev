@@ -133,7 +133,7 @@ def ask(question):
     print(f"[ASK] Question received: {question}")
     #retrieved_info = retrieve_context(question)
     
-    if len(conversation_history["user"] > 0):
+    if len(conversation_history["user"]) > 0:
         retrieved_info = "\n".join(f"- {msg}" for msg in conversation_history["user"])
     else:
         retrieved_info = "No relevant context yet"
@@ -152,7 +152,7 @@ def ask(question):
     """
 
     print("[ASK] Prompt sent to LLM.")
-    response = medical_model.llm(prompt, max_tokens=40)['choices'][0]['message']['content']
+    response = medical_model.llm(prompt, max_tokens=100)['choices'][0]['message']['content']
     print(f"[ASK] Response received from model: {response}")
     update_conversation(question, response, index)
     return response
