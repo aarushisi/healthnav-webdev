@@ -190,5 +190,16 @@ def get_specialty():
         print("[ERROR] Exception in /get-specialty:", e)
         return jsonify({"error": "Internal Server Error"}), 500
 
+@app.route("/clear-history", methods=["POST"])
+def clear_history():
+    try:
+        main.conversation_history["user"].clear()
+        main.conversation_history["assistant"].clear()
+        print("[CLEAR] Conversation history cleared.")
+        return jsonify({"message": "Conversation history cleared"}), 200
+    except Exception as e:
+        print("[ERROR] Failed to clear history:", e)
+        return jsonify({"error": "Failed to clear history"}), 500
+
 if __name__ == "__main__":
     app.run(debug=True, port=5002, use_reloader=False)

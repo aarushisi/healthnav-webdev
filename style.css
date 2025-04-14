@@ -223,6 +223,7 @@ input[type="submit"]:hover {
     margin-top: 10px;
     transition: background-color 0.3s, transform 0.2s;
 }
+
 #submit-symptoms-btn:hover {
     background-color: #528da4;
     transform: translateY(-2px);
@@ -249,6 +250,27 @@ input[type="submit"]:hover {
     background-color: #064158;
     color: #528da4;
     transform: translateY(-2px);
+}
+
+#clear-history-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #528da4;
+    color: #FFF9F0;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: background-color 0.3s, transform 0.2s;
+    z-index: 1000;
+}
+#clear-history-btn:hover {
+    background-color: #064158;
+    transform: scale(1.05);
 }
 
 #profile-page-content {

@@ -236,7 +236,24 @@ document.addEventListener("DOMContentLoaded", function() {
             })
             .catch(error => console.error("[ARROW] Request failed:", error));
         });
-    }       
+    } 
+    
+    const clearButton = document.getElementById("clear-history-btn");
+    if (clearButton) {
+        clearButton.addEventListener("click", function () {
+            fetch("http://127.0.0.1:5002/clear-history", {
+                method: "POST"
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("[CLEAR] Response:", data.message);
+                alert("Conversation history cleared.");
+            })
+            .catch(error => {
+                console.error("[CLEAR] Failed to clear conversation history:", error);
+            });
+        });
+    }
 });
 
 function displayDoctors(doctors) {
