@@ -164,7 +164,7 @@ def get_doctors():
 
         # If no doctors found, apply fallback
         if len(doctors) == 0:
-            fallback_specialty = "Pediatrics" if age < 18 else "Internal Medicine"
+            fallback_specialty = "Pediatrics" if age < 18 else "General Practice"
             print(f"[FALLBACK] No matches. Using fallback specialty: {fallback_specialty}")
             doctors = cursor.execute(query, (city, state, f"%{fallback_specialty}%")).fetchall()
 

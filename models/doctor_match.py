@@ -26,14 +26,14 @@ doctor_specialties += [
     "Surgery",
     "Ophthalmology",
     "Pharmacist",
-    "Internal Medicine, Cardiovascular Disease",
+    "Cardiovascular Disease",
     "Podiatrist",
     "Pathologist",
     "Neurologist",
     "General Practice",
     "Registered Nurse",
     "Physical Medicine & Rehabilitation",
-    "Internal Medicine, Gastroenterology",
+    "Gastroenterology",
     "Urology",
     "Dermatology",
     "Otolaryngology"
@@ -42,7 +42,7 @@ doctor_specialties += [
 doctor_specialties += [
     "Occupational Therapist",
     "Behavior Technician",
-    "Internal Medicine, Pulmonary Disease",
+    "Pulmonary Disease",
     "Specialist/Technologist, Athletic Trainer",
     "Dietitian",
     "Internal Medicine, Hematology & Oncology",
@@ -50,23 +50,23 @@ doctor_specialties += [
     "Audiologist",
     "Geriatric Medicine",
     "Allergy & Immunology",
-    "Internal Medicine, Infectious Disease",
+    "Infectious Disease",
     "Surgery, Vascular Surgery",
     "Thoracic Surgery (Cardiothoracic Vascular Surgery)",
     "Neurological Surgery",
-    "Internal Medicine, Critical Care Medicine"
+    "Critical Care Medicine"
 ]
 
 doctor_specialties += [
-    "Internal Medicine, Endocrinology, Diabetes & Metabolism",
+    "Endocrinology, Diabetes & Metabolism",
     "Midwife",
-    "Internal Medicine, Rheumatology",
+    "Rheumatology",
     "Plastic Surgery",
     "Hospitalist",
-    "Pain Medicine",
-    "Internal Medicine, Medical Oncology",
+    #"Pain Medicine",
+    "Medical Oncology",
     "Nurse Practitioner, Women’s Health",
-    "Internal Medicine, Interventional Cardiology",
+    "Interventional Cardiology",
     "Licensed Practical Nurse",
     "Neuromusculoskeletal Medicine & OMM",
     "Nurse Practitioner, Psych/Mental Health",
@@ -81,7 +81,7 @@ doctor_specialties += [
     "Behavior Analyst",
     "Marriage & Family Therapist",
     "Surgery, Surgery of the Hand",
-    "Internal Medicine, Clinical Cardiac Electrophysiology",
+    "Clinical Cardiac Electrophysiology",
     "Addiction Medicine",
     "Technician, Personal Care Attendant",
     "Medical Genetics",
@@ -90,7 +90,7 @@ doctor_specialties += [
     "Massage Therapist",
     "Day Training/Habilitation Specialist",
     "Preventive Medicine, Occupational Medicine",
-    "Internal Medicine, Hematology"
+    "Hematology"
 ]
 
 doctor_specialties += [
@@ -136,10 +136,10 @@ doctor_specialties += [
     "Music Therapist",
     "Prosthetist",
     "Nurse Practitioner, Critical Care Medicine",
-    "Internal Medicine, Adult Congenital Heart Disease",
+    "Adult Congenital Heart Disease",
     "Physical Medicine & Rehabilitation, Neuromuscular Medicine",
     "Clinical Nurse Specialist, Psych/Mental Health",
-    "Internal Medicine, Advanced Heart Failure and Transplant Cardiology",
+    "Advanced Heart Failure and Transplant Cardiology",
     "Durable Medical Equipment & Medical Supplies",
     "Clinical Nurse Specialist, Oncology",
     "Naturopath",
@@ -242,7 +242,7 @@ doctor_descriptions += [
     "Deals with arthritis and other rheumatic diseases affecting joints, muscles, and bones.",
     "Involves repairing or reconstructing physical defects and performing cosmetic procedures.",
     "Specializes in the general medical care of hospitalized patients, coordinating overall treatment plans.",
-    "Manages acute, chronic, and cancer-related pain using a variety of medical and therapeutic approaches.",
+    #"Manages acute, chronic, and cancer-related pain using a variety of medical and therapeutic approaches.",
     "Specializes in cancer treatment using chemotherapy, targeted therapy, and other medications.",
     "Provides advanced nursing care and health services specifically for women, focusing on reproductive, obstetric, and gynecological health.",
     "Uses minimally invasive, catheter-based techniques to treat cardiovascular diseases (e.g., stent placement).",
