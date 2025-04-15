@@ -11,7 +11,7 @@ class MedicalModel:
         build_doctor_index()
         print(f"[INIT] Doctor Index Initialized")
 
-    def llm(self, prompt, max_tokens=100):
+    def llm(self, prompt, max_tokens=50):
         print(f"[LLM] Preparing to send prompt to model.")
         print(f"[LLM] Prompt: {prompt[:200]}{'...' if len(prompt) > 200 else ''}")  # Truncate long prompts
         print(f"[LLM] Max tokens: {max_tokens}")
@@ -25,11 +25,12 @@ class MedicalModel:
                     "stream": False,
                     "options": {
                         "num_predict": max_tokens,
-                        "temperature": 0.7,
-                        "top_p": 0.9
+                        "temperature": 0.5,
+                        "top_p": 0.9,
+                        "stop": ["<|start_header_id|>", "<|end_header_id|>", "<|eot_id|>"]
                     }
                 },
-                timeout = 600
+                timeout = 300
             )
             print("[LLM] Request sent. Awaiting response...")
             response.raise_for_status()
